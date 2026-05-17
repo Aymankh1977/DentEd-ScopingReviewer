@@ -1,0 +1,161 @@
+"""
+DentEd-ScopingReviewer — Section Prompt Library
+================================================
+Each PRISMA-ScR section has its own prompt module that encodes:
+
+  * The PRISMA-ScR item it addresses (and the exact wording from
+    Tricco et al. 2018).
+  * The minimum evidence required from the charted corpus.
+  * The mandatory structural elements (e.g. PRISMA flow numbers,
+    Table 1 of study characteristics).
+  * Length and tone guidance.
+  * Output format expectations.
+
+A `SectionPrompt` is a data class — no logic. The drafter takes one,
+fills its template with project context + the charted corpus, and
+sends it to the DRAFTING-role API client.
+
+Why per-section prompts?
+------------------------
+A generic "write the methods" prompt produces generic methods.
+PRISMA-ScR Item 8 requires the full electronic search strategy
+for at least one database, Item 14 requires the flow diagram numbers
+with exclusion reasons, and Item 18 requires synthesis aligned with
+the review objectives. These are *different* tasks with *different*
+evidence requirements. Treating them as one task is exactly why
+AI-written reviews fail journal scrutiny.
+
+Each section module exports a `PROMPT` constant of type
+`SectionPrompt`. Adding a new section is one new file in this folder
+plus an entry in the `SECTION_PROMPTS` registry below.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Callable, Optional
+
+
+@dataclass
+class SectionPrompt:
+    """
+    Specification for drafting one PRISMA-ScR section.
+
+    Attributes
+    ----------
+    section_id
+        Matches the section_id used in the orchestrator and
+        ``PRISMA_SCR_SECTIONS`` registry.
+    prisma_scr_item
+        Numeric PRISMA-ScR checklist item (1-22) plus the verbatim
+        Tricco et al. 2018 requirement text. The drafter shows this
+        to the model so the section is anchored to the checklist.
+    objective
+        Plain-English description of what this section must achieve
+        within the review.
+    required_evidence
+        Bullet list of evidence the drafter must surface from the
+        charted corpus (or from project metadata). The drafter
+        validates that each item is present in context before
+        sending; if not, it returns a "blocked" status with the
+        list of missing inputs.
+    structural_requirements
+        Mandatory structural elements the prose must contain — e.g.
+        "An inclusion criteria bullet list", "A PRISMA flow paragraph
+        with totals for each stage", "A Table 1 markdown table".
+    word_target
+        (min, max) word count for the section.
+    tone
+        Free-form guidance — academic, neutral, evidence-led.
+    extra_guidance
+        Section-specific notes the drafter should pass to the model
+        verbatim (e.g. "Do not pre-empt the discussion section").
+    output_format
+        How the drafter should structure the response (markdown,
+        markdown+table, markdown+flow-text, etc.).
+    """
+
+    section_id: str
+    prisma_scr_item: str
+    objective: str
+    required_evidence: list[str]
+    structural_requirements: list[str]
+    word_target: tuple[int, int]
+    tone: str = (
+        "Academic, neutral, evidence-led. UK English. Avoid hedge phrases "
+        "and avoid speculation beyond the charted evidence."
+    )
+    extra_guidance: list[str] = field(default_factory=list)
+    output_format: str = "Markdown prose"
+
+    def render_requirements_block(self) -> str:
+        """Produce the requirements block injected into the drafter prompt."""
+        parts = [
+            f"### PRISMA-ScR item",
+            self.prisma_scr_item,
+            "",
+            f"### Objective for this section",
+            self.objective,
+            "",
+            f"### Evidence you must use from the project context",
+        ]
+        parts += [f"- {item}" for item in self.required_evidence]
+        parts += ["", "### Structural requirements"]
+        parts += [f"- {item}" for item in self.structural_requirements]
+        parts += [
+            "",
+            f"### Word target",
+            f"{self.word_target[0]}–{self.word_target[1]} words.",
+            "",
+            "### Tone",
+            self.tone,
+            "",
+            "### Output format",
+            self.output_format,
+        ]
+        if self.extra_guidance:
+            parts += ["", "### Section-specific guidance"]
+            parts += [f"- {item}" for item in self.extra_guidance]
+        return "\n".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Registry — populated by each section module at import time
+# ---------------------------------------------------------------------------
+SECTION_PROMPTS: dict[str, SectionPrompt] = {}
+
+
+def register(prompt: SectionPrompt) -> SectionPrompt:
+    """Decorator-style helper used by each section module."""
+    SECTION_PROMPTS[prompt.section_id] = prompt
+    return prompt
+
+
+# ---------------------------------------------------------------------------
+# Eager-import all section modules so the registry is populated when this
+# package is imported. New sections just need a file in this folder.
+# ---------------------------------------------------------------------------
+from app.prompts import (  # noqa: E402, F401  (side-effect imports)
+    methods_eligibility,
+    methods_search,
+    methods_selection,
+    methods_data_charting,
+    results_selection,
+    results_characteristics,
+    results_synthesis,
+    discussion_summary,
+)
+
+
+def get_prompt(section_id: str) -> SectionPrompt:
+    """Fetch a section prompt, raising a clear error if not yet implemented."""
+    if section_id not in SECTION_PROMPTS:
+        raise NotImplementedError(
+            f"No prompt module yet for section '{section_id}'. "
+            f"Implemented sections: {sorted(SECTION_PROMPTS.keys())}"
+        )
+    return SECTION_PROMPTS[section_id]
+
+
+def available_sections() -> list[str]:
+    return sorted(SECTION_PROMPTS.keys())

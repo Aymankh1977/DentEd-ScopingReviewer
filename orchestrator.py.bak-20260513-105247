@@ -1,0 +1,455 @@
+"""
+DentEd-ScopingReviewer — Orchestrator Agent (v2 — drafter wired in)
+====================================================================
+The orchestrator is the central planner. It:
+
+  1. Holds the canonical state of a review project (uploaded corpus,
+     extracted charts, drafted sections, audit verdicts).
+  2. Routes work to specialised agents (extractor, drafter, critic,
+     originality auditor, coherence checker, PRISMA validator).
+  3. Enforces the PRISMA-ScR section order and dependencies — e.g. you
+     can't draft `results_selection` until extraction has completed,
+     and you can't run final coherence until every section is drafted.
+  4. Persists state to disk so a long review can survive an app reload.
+
+Design principle
+----------------
+Agents are dumb workers. The orchestrator is the *only* module that
+knows about the workflow as a whole. This keeps each agent's prompt
+focused and its outputs auditable.
+
+PRISMA-ScR section dependency graph
+-----------------------------------
+              ┌──── title ◄──── methods_* (need to know review scope)
+              │
+  EXTRACTION ─┼──── methods_eligibility, search, selection, charting…
+              │
+              └──── results_* ──► discussion_* ──► abstract ──► title
+                                                       │
+                                                       └──► coherence
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import uuid
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
+from enum import Enum
+from pathlib import Path
+from typing import Any, Optional
+
+from app.agents.api_client_manager import APIClientManager, Role, get_manager
+
+logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------------------------
+# Workflow modes
+# ---------------------------------------------------------------------------
+class ReviewMode(str, Enum):
+    """Top-level operating mode of the platform."""
+
+    GENERATE = "generate"   # build a new scoping review from a corpus
+    CRITIQUE = "critique"   # critique an existing manuscript
+
+
+# ---------------------------------------------------------------------------
+# Section status
+# ---------------------------------------------------------------------------
+class SectionStatus(str, Enum):
+    PENDING = "pending"
+    IN_PROGRESS = "in_progress"
+    DRAFTED = "drafted"
+    CRITIQUED = "critiqued"
+    APPROVED = "approved"
+    BLOCKED = "blocked"        # required evidence missing
+    FAILED = "failed"
+
+
+# ---------------------------------------------------------------------------
+# PRISMA-ScR section registry
+# ---------------------------------------------------------------------------
+# Order = canonical PRISMA-ScR sequence.
+# `depends_on` enforces the dependency graph above.
+# ---------------------------------------------------------------------------
+PRISMA_SCR_SECTIONS: list[dict] = [
+    # -- Methods first because everything else depends on them --
+    {"id": "methods_protocol",            "depends_on": []},
+    {"id": "methods_eligibility",         "depends_on": []},
+    {"id": "methods_information_sources", "depends_on": []},
+    {"id": "methods_search",              "depends_on": ["methods_information_sources"]},
+    {"id": "methods_selection",           "depends_on": ["methods_eligibility"]},
+    {"id": "methods_data_charting",       "depends_on": ["methods_eligibility"]},
+    {"id": "methods_data_items",          "depends_on": ["methods_data_charting"]},
+    {"id": "methods_synthesis",           "depends_on": ["methods_data_items"]},
+    # -- Results need extraction + methods --
+    {"id": "results_selection",           "depends_on": ["methods_selection"]},
+    {"id": "results_characteristics",     "depends_on": ["methods_data_charting"]},
+    {"id": "results_critical_appraisal",  "depends_on": ["results_characteristics"]},
+    {"id": "results_individual_sources",  "depends_on": ["results_characteristics"]},
+    {"id": "results_synthesis",           "depends_on": ["results_individual_sources"]},
+    # -- Introduction can be written once we know the synthesis --
+    {"id": "introduction_rationale",      "depends_on": ["results_synthesis"]},
+    {"id": "introduction_objectives",     "depends_on": ["introduction_rationale"]},
+    # -- Discussion after results --
+    {"id": "discussion_summary",          "depends_on": ["results_synthesis"]},
+    {"id": "discussion_limitations",      "depends_on": ["discussion_summary"]},
+    {"id": "discussion_conclusions",      "depends_on": ["discussion_limitations"]},
+    # -- Front matter last --
+    {"id": "abstract",                    "depends_on": ["discussion_conclusions"]},
+    {"id": "title",                       "depends_on": ["abstract"]},
+    # -- Funding standalone --
+    {"id": "funding",                     "depends_on": []},
+]
+
+
+# ---------------------------------------------------------------------------
+# State containers
+# ---------------------------------------------------------------------------
+@dataclass
+class SectionState:
+    section_id: str
+    status: SectionStatus = SectionStatus.PENDING
+    draft: Optional[str] = None
+    structured_blocks: dict = field(default_factory=dict)
+    critique: Optional[dict] = None
+    originality_score: Optional[float] = None
+    prisma_compliance: Optional[dict] = None
+    word_count: int = 0
+    missing_evidence: list = field(default_factory=list)
+    error: Optional[str] = None
+    updated_at: Optional[str] = None
+    iteration: int = 0
+
+
+@dataclass
+class UploadedSource:
+    """A single PDF / DOCX uploaded by the user."""
+
+    source_id: str
+    filename: str
+    path: str
+    role: str  # "corpus" (study to be reviewed) or "manuscript" (under critique)
+    extracted_chart: Optional[dict] = None
+    full_text: Optional[str] = None  # populated lazily to keep state lean
+
+
+@dataclass
+class ReviewProject:
+    """Top-level state for a single scoping review."""
+
+    project_id: str
+    mode: ReviewMode
+    research_question: str
+    population: str
+    concept: str
+    context: str  # PCC framework — PRISMA-ScR's PICO equivalent
+    created_at: str
+    updated_at: str
+    sources: dict[str, UploadedSource] = field(default_factory=dict)
+    sections: dict[str, SectionState] = field(default_factory=dict)
+    workspace_dir: Optional[str] = None
+
+    def to_dict(self) -> dict:
+        return {
+            "project_id": self.project_id,
+            "mode": self.mode.value,
+            "research_question": self.research_question,
+            "population": self.population,
+            "concept": self.concept,
+            "context": self.context,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "workspace_dir": self.workspace_dir,
+            "sources": {k: asdict(v) for k, v in self.sources.items()},
+            "sections": {
+                k: {**asdict(v), "status": v.status.value}
+                for k, v in self.sections.items()
+            },
+        }
+
+
+# ---------------------------------------------------------------------------
+# Orchestrator
+# ---------------------------------------------------------------------------
+class Orchestrator:
+    """
+    The conductor. Coordinates extractor, drafter, critic, originality
+    auditor, coherence checker, and PRISMA validator.
+
+    Typical lifecycle
+    -----------------
+        orch = Orchestrator()
+        project = orch.start_project(
+            mode=ReviewMode.GENERATE,
+            research_question="How is AI being used in dental education?",
+            population="Dental students and educators",
+            concept="AI-driven teaching, assessment, and feedback",
+            context="Undergraduate dental education globally",
+        )
+        orch.register_source(project, path="/path/to/study1.pdf", role="corpus")
+        orch.extract_all(project)
+        orch.draft_section(project, "methods_eligibility")
+        orch.draft_all_ready(project)
+    """
+
+    def __init__(
+        self,
+        manager: Optional[APIClientManager] = None,
+        workspace_root: str | Path = "data/processed",
+    ):
+        self.manager = manager or get_manager()
+        self.workspace_root = Path(workspace_root)
+        self.workspace_root.mkdir(parents=True, exist_ok=True)
+
+    # -- project lifecycle -------------------------------------------------
+    def start_project(
+        self,
+        mode: ReviewMode,
+        research_question: str,
+        population: str,
+        concept: str,
+        context: str,
+    ) -> ReviewProject:
+        project_id = uuid.uuid4().hex[:12]
+        now = datetime.now(timezone.utc).isoformat()
+        workspace = self.workspace_root / project_id
+        workspace.mkdir(parents=True, exist_ok=True)
+
+        project = ReviewProject(
+            project_id=project_id,
+            mode=mode,
+            research_question=research_question,
+            population=population,
+            concept=concept,
+            context=context,
+            created_at=now,
+            updated_at=now,
+            workspace_dir=str(workspace),
+        )
+        # Seed every PRISMA-ScR section as PENDING.
+        for entry in PRISMA_SCR_SECTIONS:
+            project.sections[entry["id"]] = SectionState(section_id=entry["id"])
+
+        self.save(project)
+        logger.info("Started project %s in %s mode.", project_id, mode.value)
+        return project
+
+    # -- source management -------------------------------------------------
+    def register_source(
+        self,
+        project: ReviewProject,
+        path: str,
+        role: str = "corpus",
+        filename: Optional[str] = None,
+    ) -> UploadedSource:
+        source_id = uuid.uuid4().hex[:10]
+        source = UploadedSource(
+            source_id=source_id,
+            filename=filename or Path(path).name,
+            path=path,
+            role=role,
+        )
+        project.sources[source_id] = source
+        self._touch(project)
+        return source
+
+    # -- extraction --------------------------------------------------------
+    def extract_all(self, project: ReviewProject) -> None:
+        """Run the extractor over every registered source."""
+        # Imported lazily to avoid a circular import at module load.
+        from app.agents.extractor import ExtractorAgent
+
+        extractor = ExtractorAgent(self.manager)
+        for source in project.sources.values():
+            if source.extracted_chart is None:
+                logger.info("Extracting source %s (%s)…",
+                            source.source_id, source.filename)
+                source.extracted_chart = extractor.extract_chart(
+                    source_path=source.path,
+                    project_context=self._project_context(project),
+                )
+        self.save(project)
+
+    # -- drafting ----------------------------------------------------------
+    def can_draft(self, project: ReviewProject, section_id: str) -> bool:
+        """Check the dependency graph before drafting a section."""
+        entry = next((s for s in PRISMA_SCR_SECTIONS if s["id"] == section_id), None)
+        if entry is None:
+            raise ValueError(f"Unknown section: {section_id}")
+        for dep in entry["depends_on"]:
+            if project.sections[dep].status not in {
+                SectionStatus.DRAFTED,
+                SectionStatus.CRITIQUED,
+                SectionStatus.APPROVED,
+            }:
+                return False
+        return True
+
+    def ready_sections(self, project: ReviewProject) -> list[str]:
+        """
+        Return section IDs that are unstarted *and* whose dependencies
+        are satisfied *and* for which a prompt module exists.
+        """
+        # Lazy import — prompts package isn't always available during tests.
+        try:
+            from app.prompts import SECTION_PROMPTS
+            implemented = set(SECTION_PROMPTS.keys())
+        except ImportError:
+            implemented = set()
+
+        return [
+            s["id"]
+            for s in PRISMA_SCR_SECTIONS
+            if project.sections[s["id"]].status == SectionStatus.PENDING
+            and self.can_draft(project, s["id"])
+            and s["id"] in implemented
+        ]
+
+    def draft_section(
+        self,
+        project: ReviewProject,
+        section_id: str,
+    ) -> SectionState:
+        """
+        Run the drafter agent for one section, persist the result into
+        project state, and save the project.
+        """
+        from app.agents.drafter import DrafterAgent, DraftStatus
+
+        if not self.can_draft(project, section_id):
+            raise RuntimeError(
+                f"Cannot draft '{section_id}' — dependencies not yet satisfied."
+            )
+
+        state = project.sections[section_id]
+        state.status = SectionStatus.IN_PROGRESS
+        state.iteration += 1
+        state.updated_at = datetime.now(timezone.utc).isoformat()
+        self.save(project)
+
+        drafter = DrafterAgent(self.manager)
+        corpus_charts = [
+            s.extracted_chart
+            for s in project.sources.values()
+            if s.extracted_chart is not None
+        ]
+        previous_sections = {
+            sid: st.draft
+            for sid, st in project.sections.items()
+            if st.draft and sid != section_id
+        }
+
+        result = drafter.draft(
+            section_id=section_id,
+            project_context=self._project_context(project),
+            corpus_charts=corpus_charts,
+            previous_sections=previous_sections,
+        )
+
+        # Map drafter status to section status.
+        if result.status == DraftStatus.OK:
+            state.status = SectionStatus.DRAFTED
+            state.draft = result.prose
+            state.structured_blocks = result.structured_blocks
+            state.word_count = result.word_count
+            state.error = None
+            state.missing_evidence = []
+            logger.info(
+                "Drafted %s (%d words, model=%s).",
+                section_id, result.word_count, result.model,
+            )
+        elif result.status == DraftStatus.BLOCKED:
+            state.status = SectionStatus.BLOCKED
+            state.missing_evidence = result.missing_evidence
+            state.error = None
+            logger.warning(
+                "Drafter blocked on %s — missing: %s",
+                section_id, result.missing_evidence,
+            )
+        else:
+            state.status = SectionStatus.FAILED
+            state.error = result.error
+            logger.error("Drafter failed on %s — %s", section_id, result.error)
+
+        state.updated_at = datetime.now(timezone.utc).isoformat()
+        self.save(project)
+        return state
+
+    def draft_all_ready(
+        self,
+        project: ReviewProject,
+        max_iterations: int = 25,
+    ) -> list[str]:
+        """
+        Drive the dependency graph forwards: keep drafting whatever's
+        ready until nothing else can advance. Returns the ordered list
+        of section IDs that were drafted.
+        """
+        drafted: list[str] = []
+        for _ in range(max_iterations):
+            ready = self.ready_sections(project)
+            if not ready:
+                break
+            for sid in ready:
+                self.draft_section(project, sid)
+                # Only count OK drafts as "drafted" for return value.
+                if project.sections[sid].status == SectionStatus.DRAFTED:
+                    drafted.append(sid)
+        return drafted
+
+    # -- persistence -------------------------------------------------------
+    def save(self, project: ReviewProject) -> Path:
+        self._touch(project)
+        target = Path(project.workspace_dir) / "project.json"
+        target.write_text(json.dumps(project.to_dict(), indent=2))
+        return target
+
+    def load(self, project_id: str) -> ReviewProject:
+        target = self.workspace_root / project_id / "project.json"
+        data = json.loads(target.read_text())
+        return self._project_from_dict(data)
+
+    # -- helpers -----------------------------------------------------------
+    def _touch(self, project: ReviewProject) -> None:
+        project.updated_at = datetime.now(timezone.utc).isoformat()
+
+    def _project_context(self, project: ReviewProject) -> dict[str, Any]:
+        return {
+            "research_question": project.research_question,
+            "population": project.population,
+            "concept": project.concept,
+            "context": project.context,
+            "mode": project.mode.value,
+        }
+
+    def _project_from_dict(self, data: dict) -> ReviewProject:
+        sources = {
+            k: UploadedSource(**v) for k, v in data.get("sources", {}).items()
+        }
+        sections = {}
+        for k, v in data.get("sections", {}).items():
+            v = dict(v)
+            v["status"] = SectionStatus(v["status"])
+            # Drop legacy keys gracefully.
+            v.pop("updated_at_iso", None)
+            sections[k] = SectionState(**{
+                k_: v_ for k_, v_ in v.items()
+                if k_ in SectionState.__annotations__
+            })
+
+        return ReviewProject(
+            project_id=data["project_id"],
+            mode=ReviewMode(data["mode"]),
+            research_question=data["research_question"],
+            population=data["population"],
+            concept=data["concept"],
+            context=data["context"],
+            created_at=data["created_at"],
+            updated_at=data["updated_at"],
+            workspace_dir=data.get("workspace_dir"),
+            sources=sources,
+            sections=sections,
+        )

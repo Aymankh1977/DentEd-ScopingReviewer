@@ -1,0 +1,21 @@
+{
+  "manuscript_label": "Project b7e9a9dbb5b1",
+  "overall_score": 50,
+  "overall_verdict": "incremental",
+  "overall_summary": "No reference corpus was supplied for comparison, so no concrete overlap can be identified or ruled out. Additionally, no manuscript sections were provided in this request, preventing substantive section-level analysis. The verdict defaults to a neutral 'incremental' placeholder pending provision of both the manuscript text and a non-empty reference corpus.",
+  "reference_corpus_size": 0,
+  "corpus_mode": "project",
+  "error": null,
+  "model": "claude-opus-4-7",
+  "audited_at": "2026-05-13T15:13:20.098375+00:00",
+  "section_reports": [
+    {
+      "section_id": "not_provided",
+      "novelty_score": 50,
+      "verdict": "incremental",
+      "summary": "No manuscript sections were supplied in the audit request, so section-level novelty cannot be assessed.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    }
+  ]
+}

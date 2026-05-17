@@ -1,0 +1,290 @@
+{
+  "manuscript_label": "Project 506fe56117ae",
+  "overall_score": 72,
+  "overall_verdict": "incremental",
+  "overall_summary": "The manuscript is a legitimate scoping review that maps and synthesises five existing studies (R1–R5), all of which are properly cited throughout. Its novel contribution lies in being the first synthesis to map this evidence base, identify thematic groupings across competency frameworks, readiness, and governance, and explicitly flag the absence of empirical accreditation evidence. However, the synthesis content is necessarily heavily derived from the cited corpus, and the thematic structure overlaps considerably with framings already present in R1, R2, and R5. The methods are standard PRISMA-ScR/JBI and not a source of overlap concern.",
+  "reference_corpus_size": 5,
+  "corpus_mode": "project",
+  "error": null,
+  "model": "claude-opus-4-7",
+  "audited_at": "2026-05-13T15:03:39.827311+00:00",
+  "section_reports": [
+    {
+      "section_id": "methods_protocol",
+      "novelty_score": 90,
+      "verdict": "novel",
+      "summary": "Standard PRISMA-ScR procedural reporting; no substantive overlap with corpus.",
+      "overlap_matches": [],
+      "unique_contributions": [
+        "Explicit acknowledgement of absence of pre-registration as a limitation"
+      ]
+    },
+    {
+      "section_id": "methods_eligibility",
+      "novelty_score": 85,
+      "verdict": "novel",
+      "summary": "Uses standard JBI PCC framework; eligibility criteria are specific to this review's scope and not duplicative of any corpus source.",
+      "overlap_matches": [],
+      "unique_contributions": [
+        "Tri-partite Concept definition spanning competency frameworks, curriculum integration, and accreditation standards"
+      ]
+    },
+    {
+      "section_id": "methods_information_sources",
+      "novelty_score": 88,
+      "verdict": "novel",
+      "summary": "Database list and search procedures are standard and not overlapping with corpus content.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    },
+    {
+      "section_id": "methods_selection",
+      "novelty_score": 88,
+      "verdict": "novel",
+      "summary": "Standard dual-reviewer screening procedure; procedural similarity to scoping review norms is expected and not flagged.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    },
+    {
+      "section_id": "methods_data_charting",
+      "novelty_score": 82,
+      "verdict": "novel",
+      "summary": "Charting form description is standard; the use of AI-assisted extraction with human verification is a methodological detail not drawn from corpus.",
+      "overlap_matches": [],
+      "unique_contributions": [
+        "AI-assisted extraction with human verification workflow"
+      ]
+    },
+    {
+      "section_id": "methods_data_items",
+      "novelty_score": 88,
+      "verdict": "novel",
+      "summary": "Specification of charted variables is standard and review-specific.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    },
+    {
+      "section_id": "methods_synthesis",
+      "novelty_score": 85,
+      "verdict": "novel",
+      "summary": "Follows JBI/Peters et al. synthesis approach; appropriately cited and procedurally standard.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    },
+    {
+      "section_id": "results_selection",
+      "novelty_score": 80,
+      "verdict": "novel",
+      "summary": "Placeholder PRISMA-ScR flow content; no substantive overlap concerns.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    },
+    {
+      "section_id": "results_characteristics",
+      "novelty_score": 78,
+      "verdict": "incremental",
+      "summary": "Descriptive summary of the five corpus studies. Content necessarily derives from R1–R5 but each is explicitly cited; this is legitimate scoping-review reporting rather than duplication.",
+      "overlap_matches": [
+        {
+          "reference_id": "R1",
+          "reference_label": "Schwendicke et al., 2023",
+          "overlap_type": "finding",
+          "overlap_description": "Restates Delphi panel size (N=28) and consensus characteristics, but with explicit citation; not duplication.",
+          "severity": "low"
+        }
+      ],
+      "unique_contributions": [
+        "Cross-study tabulation showing geographic spread and design heterogeneity"
+      ]
+    },
+    {
+      "section_id": "results_critical_appraisal",
+      "novelty_score": 85,
+      "verdict": "novel",
+      "summary": "Standard justification for not appraising; references JBI methodology appropriately.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    },
+    {
+      "section_id": "results_individual_sources",
+      "novelty_score": 70,
+      "verdict": "incremental",
+      "summary": "Per-source narrative summaries closely paraphrase the key findings of each corpus source. This is appropriate scoping-review reporting with citations, but adds limited new interpretation at this stage.",
+      "overlap_matches": [
+        {
+          "reference_id": "R1",
+          "reference_label": "Schwendicke et al., 2023",
+          "overlap_type": "finding",
+          "overlap_description": "Reproduces four-domain framework, 16 items, 15/16 ≥70% consensus, modular 30–45 min delivery, and Charité pilot — all with citation.",
+          "severity": "low"
+        },
+        {
+          "reference_id": "R2",
+          "reference_label": "Thurzo et al., 2023",
+          "overlap_type": "finding",
+          "overlap_description": "Reproduces two-domain theoretical/practical framing, ChatGPT and Midjourney findings — with citation.",
+          "severity": "low"
+        },
+        {
+          "reference_id": "R3",
+          "reference_label": "Al-Zubaidi et al., 2024",
+          "overlap_type": "finding",
+          "overlap_description": "Restates 62% low AI literacy, 57% training need, and administrative-task usage finding — with citation.",
+          "severity": "low"
+        },
+        {
+          "reference_id": "R4",
+          "reference_label": "Hammoudi Halat et al., 2024",
+          "overlap_type": "finding",
+          "overlap_description": "Restates MAIRS scores, cognition domain finding, 63.8% no prior training, and β coefficients — with citation.",
+          "severity": "low"
+        },
+        {
+          "reference_id": "R5",
+          "reference_label": "Uribe et al., 2025",
+          "overlap_type": "finding",
+          "overlap_description": "Restates 31 documents, theme frequencies, ChatGPT prevalence, University of Michigan/UNESCO findings — with citation.",
+          "severity": "low"
+        }
+      ],
+      "unique_contributions": [
+        "Standardised, parallel presentation of heterogeneous sources to enable cross-study comparison"
+      ]
+    },
+    {
+      "section_id": "results_synthesis",
+      "novelty_score": 74,
+      "verdict": "incremental",
+      "summary": "Four-theme synthesis offers a genuine cross-study mapping not present in any single corpus source, including the explicit identification of the accreditation evidence gap. However, Theme 1 leans heavily on R1's framework as the organising structure, and Theme 4 echoes R5's governance framing.",
+      "overlap_matches": [
+        {
+          "reference_id": "R1",
+          "reference_label": "Schwendicke et al., 2023",
+          "overlap_type": "framing",
+          "overlap_description": "Theme 1 adopts and explicates the four-domain competency structure as a central frame; properly attributed.",
+          "severity": "medium"
+        },
+        {
+          "reference_id": "R5",
+          "reference_label": "Uribe et al., 2025",
+          "overlap_type": "framing",
+          "overlap_description": "Theme 4 echoes Uribe's identification of ethical use, transparency, and academic integrity as dominant governance themes; properly attributed.",
+          "severity": "low"
+        }
+      ],
+      "unique_contributions": [
+        "Cross-study identification that accreditation standards are not addressed by any source",
+        "Convergence analysis across readiness studies in Qatar and Pakistan despite design differences",
+        "Explicit mapping of themes back to the review's PCC sub-questions"
+      ]
+    },
+    {
+      "section_id": "introduction_rationale",
+      "novelty_score": 80,
+      "verdict": "novel",
+      "summary": "Frames the rationale for synthesising a fragmented field; appropriately cites prior work to motivate the gap.",
+      "overlap_matches": [
+        {
+          "reference_id": "R1",
+          "reference_label": "Schwendicke et al., 2023",
+          "overlap_type": "framing",
+          "overlap_description": "References Schwendicke's framework as the principal empirical anchor — cited rather than duplicated.",
+          "severity": "low"
+        }
+      ],
+      "unique_contributions": [
+        "Articulation of the need for a synthesis-level mapping not previously undertaken"
+      ]
+    },
+    {
+      "section_id": "introduction_objectives",
+      "novelty_score": 88,
+      "verdict": "novel",
+      "summary": "Objectives are specific to this review and structured via PCC; no overlap with corpus.",
+      "overlap_matches": [],
+      "unique_contributions": [
+        "Five-part objective structure including explicit accreditation and gap-identification aims"
+      ]
+    },
+    {
+      "section_id": "discussion_summary",
+      "novelty_score": 76,
+      "verdict": "incremental",
+      "summary": "Summarises the review's own synthesis with attention to evidence shape (recency, geography, scale). Findings about readiness deficits and absent accreditation evidence are partly derived from R1, R3, R4, R5 but synthesised in a way that adds cross-study interpretation.",
+      "overlap_matches": [
+        {
+          "reference_id": "R1",
+          "reference_label": "Schwendicke et al., 2023",
+          "overlap_type": "finding",
+          "overlap_description": "Reiterates four-domain framework and pilot characteristics — cited.",
+          "severity": "low"
+        },
+        {
+          "reference_id": "R5",
+          "reference_label": "Uribe et al., 2025",
+          "overlap_type": "finding",
+          "overlap_description": "Reiterates absence of dental-specific GenAI guidelines — cited.",
+          "severity": "low"
+        }
+      ],
+      "unique_contributions": [
+        "Stratified implications for educators, researchers, accreditors, and policy-makers",
+        "Characterisation of the evidence base as recent, small-scale, and geographically narrow"
+      ]
+    },
+    {
+      "section_id": "discussion_limitations",
+      "novelty_score": 85,
+      "verdict": "novel",
+      "summary": "Limitations are review-specific and not overlapping with corpus content.",
+      "overlap_matches": [],
+      "unique_contributions": [
+        "Explicit acknowledgement of AI-assisted charting as a methodological limitation"
+      ]
+    },
+    {
+      "section_id": "discussion_conclusions",
+      "novelty_score": 78,
+      "verdict": "incremental",
+      "summary": "Conclusions translate the synthesis into practice, policy, and research implications. The research-priority recommendations (multi-institutional evaluation, independent framework validation, accreditation qualitative work) constitute genuine forward-looking contribution beyond the corpus.",
+      "overlap_matches": [
+        {
+          "reference_id": "R1",
+          "reference_label": "Schwendicke et al., 2023",
+          "overlap_type": "framing",
+          "overlap_description": "Adopts Schwendicke framework as the recommended educator starting point — cited.",
+          "severity": "low"
+        },
+        {
+          "reference_id": "R3",
+          "reference_label": "Al-Zubaidi et al., 2024",
+          "overlap_type": "framing",
+          "overlap_description": "Reiterates the recommendation for PMDC regulatory intervention — cited.",
+          "severity": "low"
+        }
+      ],
+      "unique_contributions": [
+        "Three specific research priorities derived from the cross-study synthesis",
+        "Explicit argument that current evidence cannot underpin accreditation standards"
+      ]
+    },
+    {
+      "section_id": "abstract",
+      "novelty_score": 80,
+      "verdict": "novel",
+      "summary": "Standard PRISMA-ScR abstract reporting the review's findings; corpus sources are appropriately cited.",
+      "overlap_matches": [],
+      "unique_contributions": [
+        "Concise statement of the accreditation evidence gap as a novel synthesis-level finding"
+      ]
+    },
+    {
+      "section_id": "funding",
+      "novelty_score": 95,
+      "verdict": "novel",
+      "summary": "Administrative section with no substantive content for overlap assessment.",
+      "overlap_matches": [],
+      "unique_contributions": []
+    }
+  ]
+}

@@ -1,0 +1,283 @@
+"""
+DentEd-ScopingReviewer — Batch Corpus Processor
+=================================================
+End-to-end batch test: takes a list of PDFs and a research question,
+runs them through the full pipeline (extract → draft → critique →
+cascade → export), and produces an assembled PRISMA-ScR scoping review.
+
+Usage
+-----
+    python tests/batch_corpus.py
+
+The defaults below process the 5-paper "AI competency / curriculum /
+accreditation" corpus on your Mac. Edit the constants near the top to
+run a different corpus or research question.
+
+Cost expectations
+-----------------
+With auto_critique=True and 5 papers, expect roughly:
+  - 5 extraction calls (Haiku, cheap)
+  - 21 drafting calls (Sonnet 4.6, moderate cost)
+  - 21 critique calls (Opus 4.7, expensive)
+  - Total: ~$2-3 in API tokens
+
+The script saves progress after every section, so a network interruption
+mid-cascade doesn't lose work — re-running picks up where it left off.
+"""
+
+import logging
+import sys
+import time
+from pathlib import Path
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s | %(name)s | %(message)s",
+)
+
+# Make `app` importable when running from project root.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from app.agents.orchestrator import (  # noqa: E402
+    Orchestrator,
+    ReviewMode,
+    SectionStatus,
+    PRISMA_SCR_SECTIONS,
+)
+
+
+# ===========================================================================
+# Configuration — edit these to change the corpus or research question
+# ===========================================================================
+RESEARCH_QUESTION = (
+    "What empirical evidence currently informs the development of AI "
+    "competency frameworks, curriculum integration strategies, and "
+    "accreditation standards in undergraduate and postgraduate dental "
+    "education?"
+)
+POPULATION = "Undergraduate and postgraduate dental students and educators"
+CONCEPT = (
+    "AI competency frameworks, curriculum integration strategies, and "
+    "accreditation standards"
+)
+CONTEXT = (
+    "Dental education programmes globally, focusing on empirical evidence "
+    "rather than purely theoretical commentary"
+)
+
+CORPUS_DIR = Path.home() / "Desktop" / "Scoping AI"
+
+# Specific 5 papers chosen for thematic coverage of the research question.
+# Filenames are matched as substrings to be robust against minor variants.
+CORPUS_FILENAME_PATTERNS = [
+    "Artificial intelligence for oral and dental healthcare",  # Schwendicke core curriculum
+    "Impact of Artificial Intelligence on Dental Education",   # curriculum update review
+    "Exploring Faculty Preparedness for Artificial Intelligence",  # faculty readiness
+    "Artificial Intelligence Readiness, Perceptions",          # student readiness
+    "Uribe - Integrating Generative AI",                       # accreditation/policy scoping
+]
+
+AUTO_CRITIQUE = True
+
+
+# ===========================================================================
+# Pipeline
+# ===========================================================================
+def resolve_corpus_paths() -> list[Path]:
+    """Find the PDFs in CORPUS_DIR that match the chosen filename patterns."""
+    if not CORPUS_DIR.exists():
+        raise FileNotFoundError(
+            f"Corpus directory does not exist: {CORPUS_DIR}\n"
+            f"   Edit CORPUS_DIR at the top of this script."
+        )
+
+    all_pdfs = list(CORPUS_DIR.glob("*.pdf"))
+    if not all_pdfs:
+        raise FileNotFoundError(
+            f"No PDFs in {CORPUS_DIR}.\n"
+            f"   Edit CORPUS_DIR at the top of this script."
+        )
+
+    resolved: list[Path] = []
+    missing: list[str] = []
+    for pattern in CORPUS_FILENAME_PATTERNS:
+        matches = [p for p in all_pdfs if pattern.lower() in p.name.lower()]
+        if matches:
+            # Prefer the smallest match (most likely the canonical filename
+            # rather than a duplicate copy).
+            resolved.append(sorted(matches, key=lambda p: p.stat().st_size)[0])
+        else:
+            missing.append(pattern)
+
+    if missing:
+        print(f"⚠️  Could not find papers matching: {missing}")
+        print(f"   Available PDFs in {CORPUS_DIR}:")
+        for p in sorted(all_pdfs):
+            print(f"     - {p.name}")
+        print(f"\n   Falling back to first 5 PDFs by name.")
+        resolved = sorted(all_pdfs)[:5]
+
+    return resolved
+
+
+def print_corpus_summary(paths: list[Path]) -> None:
+    print("\n── Corpus ─────────────────────────────────────────────────")
+    for i, p in enumerate(paths, 1):
+        size_kb = p.stat().st_size // 1024
+        print(f"  {i}. {p.name[:70]:70} ({size_kb:>5} KB)")
+
+
+def print_research_setup() -> None:
+    print("\n── Research design ────────────────────────────────────────")
+    print(f"  Research question: {RESEARCH_QUESTION}")
+    print(f"  Population (P)   : {POPULATION}")
+    print(f"  Concept (C)      : {CONCEPT}")
+    print(f"  Context (C)      : {CONTEXT}")
+    print(f"  Auto-critique    : {AUTO_CRITIQUE}")
+
+
+def print_extraction_summary(project) -> None:
+    print("\n── Extraction summary ─────────────────────────────────────")
+    for source_id, source in project.sources.items():
+        chart = source.extracted_chart or {}
+        if "_extraction_error" in chart:
+            print(f"  ✗ {source.filename[:60]:60} — {chart['_extraction_error'][:50]}")
+            continue
+        bib = chart.get("bibliographic", {}) or {}
+        relevance = chart.get("relevance", {}) or {}
+        author = bib.get("first_author", "?")
+        year = bib.get("year", "?")
+        rec = relevance.get("inclusion_recommendation", "?")
+        score = relevance.get("relevance_score", "?")
+        marker = {"include": "✓", "exclude": "✗", "unclear": "△"}.get(rec, "?")
+        print(f"  {marker} {author[:30]:30} ({year}) "
+              f"rel={score}/5 → {rec}")
+
+
+def print_cascade_progress(project) -> None:
+    """Print one row per section showing current status."""
+    print("\n── Cascade status ─────────────────────────────────────────")
+    for entry in PRISMA_SCR_SECTIONS:
+        sid = entry["id"]
+        state = project.sections[sid]
+        marker = {
+            SectionStatus.PENDING: "·",
+            SectionStatus.IN_PROGRESS: "↻",
+            SectionStatus.DRAFTED: "✎",
+            SectionStatus.CRITIQUED: "✓",
+            SectionStatus.APPROVED: "★",
+            SectionStatus.REVISION_REQUESTED: "◯",
+            SectionStatus.BLOCKED: "⚠",
+            SectionStatus.FAILED: "✗",
+        }.get(state.status, "?")
+
+        wc = f"{state.word_count}w" if state.word_count else ""
+
+        crit = state.critique or {}
+        score = crit.get("overall_score", "")
+        score_str = f"{score}/100" if score else ""
+        verdict = crit.get("verdict", "")
+
+        print(f"  {marker} {sid:32} {state.status.value:12} {wc:>5} "
+              f"{score_str:>8} {verdict}")
+
+
+def main() -> None:
+    print("=" * 70)
+    print("DentEd-ScopingReviewer — Batch Corpus Processor")
+    print("=" * 70)
+
+    paths = resolve_corpus_paths()
+    print_corpus_summary(paths)
+    print_research_setup()
+
+    # -- Step 1: Start the project --
+    print("\n── Starting project ───────────────────────────────────────")
+    orch = Orchestrator(auto_critique=AUTO_CRITIQUE)
+    project = orch.start_project(
+        mode=ReviewMode.GENERATE,
+        research_question=RESEARCH_QUESTION,
+        population=POPULATION,
+        concept=CONCEPT,
+        context=CONTEXT,
+    )
+    print(f"  project_id    = {project.project_id}")
+    print(f"  workspace_dir = {project.workspace_dir}")
+
+    # -- Step 2: Register and extract all sources --
+    print("\n── Registering sources ────────────────────────────────────")
+    for path in paths:
+        source = orch.register_source(project, str(path), role="corpus")
+        print(f"  ✓ {source.filename[:60]:60} (id={source.source_id})")
+
+    print("\n── Extracting (this will take a minute or so) ─────────────")
+    t0 = time.time()
+    orch.extract_all(project)
+    print(f"  Extraction completed in {time.time() - t0:.1f}s")
+    print_extraction_summary(project)
+
+    included = sum(
+        1 for s in project.sources.values()
+        if (s.extracted_chart or {}).get("relevance", {}).get(
+            "inclusion_recommendation"
+        ) == "include"
+    )
+    print(f"\n  Included for synthesis: {included}/{len(project.sources)}")
+    if included == 0:
+        print("  ⚠ No papers were marked for inclusion — corpus sections will be sparse.")
+
+    # -- Step 3: Cascade through all 21 sections --
+    print("\n── Cascading through all 21 sections ──────────────────────")
+    t_cascade_start = time.time()
+    drafted = orch.draft_all_ready(project, max_iterations=30)
+    print(f"\n  Cascade completed in {time.time() - t_cascade_start:.1f}s")
+    print(f"  Drafted in order: {drafted}")
+
+    # -- Step 4: Final status overview --
+    print_cascade_progress(project)
+
+    # -- Step 5: Aggregate quality metrics --
+    print("\n── Aggregate quality metrics ──────────────────────────────")
+    critiqued_sections = [
+        s for s in project.sections.values()
+        if s.critique and s.critique.get("overall_score") is not None
+    ]
+    if critiqued_sections:
+        scores = [s.critique["overall_score"] for s in critiqued_sections]
+        compliance = [s.critique.get("compliance_score", 0) for s in critiqued_sections]
+        faithfulness = [s.critique.get("faithfulness_score", 0) for s in critiqued_sections]
+        verdicts = [s.critique.get("verdict", "?") for s in critiqued_sections]
+
+        print(f"  Sections critiqued    : {len(critiqued_sections)}/21")
+        print(f"  Mean overall score    : {sum(scores) / len(scores):.1f}/100")
+        print(f"  Mean compliance       : {sum(compliance) / len(compliance):.1f}/100")
+        print(f"  Mean faithfulness     : {sum(faithfulness) / len(faithfulness):.1f}/100")
+        print(f"  Verdict distribution  : "
+              f"approve={verdicts.count('approve')}, "
+              f"revise={verdicts.count('revise')}, "
+              f"reject={verdicts.count('reject')}")
+        total_words = sum(s.word_count for s in project.sections.values())
+        print(f"  Total manuscript words: {total_words}")
+
+    # -- Step 6: Export the assembled manuscript --
+    print("\n── Exporting assembled manuscript ─────────────────────────")
+    try:
+        from tests.export_review import export
+        output_path = export(project.project_id)
+        print(f"  ✅ Manuscript exported to: {output_path}")
+        print(f"  Open it with:  open {output_path}")
+    except Exception as e:
+        print(f"  ⚠ Export failed: {e}")
+        print(f"  You can still inspect raw state at:")
+        print(f"     data/processed/{project.project_id}/project.json")
+
+    # -- Step 7: Cost note --
+    print()
+    print("=" * 70)
+    print(f"  project_id: {project.project_id}")
+    print(f"  Inspect:    open data/exports/{project.project_id}.md")
+    print("=" * 70)
+
+
+if __name__ == "__main__":
+    main()

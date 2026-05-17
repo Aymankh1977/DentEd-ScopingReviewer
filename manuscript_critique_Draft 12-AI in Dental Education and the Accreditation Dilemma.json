@@ -1,0 +1,1301 @@
+{
+  "manuscript_filename": "manuscript_p0pkhq84.pdf",
+  "sections_parsed": {
+    "introduction_rationale": "how artificial intelligence (AI) should be incorporated into curricula, yet the evidence \nneeded to guide AI-specific decisions remains fragmented across capability studies, \nattitude surveys, and small educational pilots, with no synthesis focused on \naccreditation policy.",
+    "introduction_objectives": "curriculum integration, and educator readiness in dental education, and to \ndetermine what this evidence can and cannot support at the level of accreditation \nrequirements.",
+    "methods_eligibility": "Concept: AI in dental education addressing competency frameworks, curriculum \nintegration, or accreditation. Context: undergraduate, postgraduate, or continuing \nprofessional development. Date range: 1 January 2018 to 30 April 2026. Language: \nEnglish only.  \nSources of evidence: MEDLINE (via PubMed) searched 30 April 2026; reference \nlists hand searched.  \nCharting methods: One reviewer extracted data with 20% verification by a second \nreviewer. Categories: setting, design, sample, AI tool, outcome, findings, limitations, \nKirkpatrick level.  \nResults: Twenty-eight studies were synthesised across five themes: competency \nframeworks, educational needs, educator readiness, curriculum interventions, and \nassessment validity. A global competency framework was published in 2022, but \nimplementation remains uneven. Faculty readiness, rather than student interest or \nAI capability, appears to be a recurring constraint: fewer than one third of educators \nreported routine AI use, and emerging evidence links lower perceived readiness to \npoorer student performance. Intervention evidence is mixed: the sole randomised \ntrial found skills did not persist when AI support was removed, and the only \n\ncontrolled explainable AI experiment revealed automation bias. No intervention \nreached Kirkpatrick Level 3 or 4.",
+    "discussion_conclusions": "Conclusions: The literature supports requiring AI literacy at the knowledge level,",
+    "results_critical_appraisal": "recommended until stronger evidence becomes available. Standards that compel \nintegration without staff development risk imposing unsupported obligations. Given \ncontextual variation, standards are better framed as outcome-based expectations \nwith locally adaptable pathways than as fixed content prescriptions. \nKeywords: Artificial intelligence; dental education; accreditation; curriculum; \ncompetency framework; scoping review; PRISMA-ScR. \n \n \n \nIntroduction \n \nAccreditation in dental education is the external mechanism through which \nprofessional and educational standards are evaluated, with direct consequences for \ninstitutional standing, programme recognition, and graduate registration (Field, \n1995; Schönwetter et al., 2026). Over the past decade, many accreditation \nframeworks have begun to incorporate an explicit technology dimension, setting \nexpectations about digital environments, digital competencies, and the educational \ntechnologies institutions should provide, and graduates should demonstrate (Dzyuba \net al., 2025; Nafea, 2021). This development reflects the normalisation of digital tools \nin clinical dentistry: CAD/CAM, cone-beam imaging, intraoral scanning, electronic \nhealth records, and teledentistry have shifted from optional adjuncts to expected \ncomponents of practice (Dzyuba et al., 2025). Accreditation has generally followed \nthis shift, though often with delay and limited specificity. Standards increasingly \nmention digital competence, yet they frequently remain broad, requiring graduates \nto use contemporary technologies without defining which tools, what level of \nmastery, or how achievement should be assessed (Field, 1995). Artificial intelligence \npresents a more difficult version of this challenge. In dentistry, AI encompasses \ndiverse applications including convolutional neural networks (CNN) for image \ninterpretation, large language models (LLM) for clinical reasoning support and \ncommunication, and rule-based decision tools for treatment planning. These systems \ndiffer in purpose, evidential maturity, and risk profile; standards written for digital \n\ntechnology in general are unlikely to be sufficient for AI in particular. The \neducational implications also differ: AI use requires critical appraisal of probabilistic \noutputs, recognition of automation bias, and ethical reasoning under uncertainty, \nrather than operational competence with a digital device. \nThis creates what we term the accreditation dilemma: standards must be specific \nenough to be auditable, yet the evidence base for what AI competencies dental \ngraduates need, and what educational approaches reliably develop them, remains \nlimited and uneven (Schwendicke et al., 2022; Aura-Tormos et al., 2026). Overly \nprescriptive standards risk codifying tools or teaching approaches that the evidence \ndoes not yet justify, and which may quickly become obsolete; standards that are too \nvague risk becoming symbolic, allowing institutions to appear compliant without \nmaking meaningful curriculum change. Early conceptual frameworks have proposed \ndomains for AI education in dentistry (Schwendicke et al., 2022), and surveys have \nbegun to explore student and educator attitudes (Uribe et al., 2024; Kavadella et al., \n2026), while small intervention studies have tested specific tools and teaching \nformats (Glick et al., 2022; Schropp et al., 2024; Caldwell et al., 2026; Kavadella et \nal., 2024). Recent reviews have mapped parts of the field, but none has focused \nspecifically on what the literature can justify at the level of accreditation (Aura-\nTormos et al., 2026; Kong et al., 2025; Iniesta and Pérez-Higueras, 2026). That \ndistinction matters: evidence that an AI system performs well on a dental task is not \nequivalent to evidence that students should be required to learn that system, or that \nschools should be accredited on that basis (Lafourcade et al., 2025; Ji et al., 2026). \nCapability findings are sometimes used as though they were curricular findings, even \nthough the educational and regulatory implications differ. The literature base \ntherefore remains fragmented across capability studies, attitude surveys, and small \neducational pilots, with no synthesis organised around the specific question of what \ncan and cannot be required through accreditation standards. A comprehensive \nmapping of empirical evidence is necessary to determine which AI competencies are \ndefensible for accreditation, what educator and learner readiness looks like, and \nwhich educational interventions have been tested at which levels of educational \noutcome. \nA scoping review is the appropriate design for this question. Unlike a systematic \nreview, which synthesises effect sizes from homogeneous intervention studies, a \nscoping review maps the breadth and nature of evidence across diverse study \n\ndesigns, identifying what is known, what remains uncertain, and where conceptual or \nmethodological gaps persist (Arksey and O'Malley, 2005; Levac et al., 2010). The \napproach follows the Arksey and O'Malley framework as refined by Levac and \ncolleagues, which allows iterative refinement of inclusion criteria and synthesis \nstructure in response to the emerging literature, and is reported in accordance with \nupdated JBI guidance and PRISMA-ScR (Peters et al., 2020; Tricco et al., 2018). This \ndesign permits the inclusion of competency frameworks, needs surveys, educator \nreadiness studies, controlled interventions, and measurement studies, each of which \naddresses a distinct aspect of whether and how AI should appear in accreditation \nstandards, while preserving the evidential distinctions among them. The synthesis is \ntherefore organised by the type of evidence each study contributes, reflecting the \ntiered logic by which accreditation bodies and curriculum committees typically \nconstruct policy: consensus development, feasibility analysis, implementation, and \nevaluation. \n \n \nMethods \n \nEligibility criteria \nEligibility criteria were framed using the Population, Concept, Context (PCC) \nframework recommended by JBI for scoping reviews (Peters et al., 2020). \nInclusion criteria \n• Population: Dental students (undergraduate or postgraduate), dental \neducators, dental faculty, or dental schools. Studies involving dental \nprofessionals in continuing professional development contexts were included \nwhere the educational intervention or curriculum development was the focus. \n• Concept: Artificial intelligence in any form, including machine learning, \ndeep learning, large language models, generative AI, or AI assisted decision \nsupport tools, as applied to or integrated within dental education. The concept \nof interest was specifically AI competency frameworks, curriculum \nintegration, accreditation alignment, or educational policy related to AI. \n• Context: Undergraduate dental education, postgraduate dental training, or \ncontinuing professional development in dentistry. Studies had to address \neducational settings rather than purely clinical performance comparisons. \n\n• Types of sources: Peer reviewed empirical studies (quantitative, qualitative, \nor mixed methods), curriculum framework development papers, competency \nconsensus studies, and foundational position papers widely cited by \naccrediting bodies or curriculum committees. Studies were considered \nrelevant if they: (a) proposed, evaluated, or directly informed an AI \ncompetency framework; (b) stated curriculum integration, accreditation \nalignment, or educational policy as an explicit purpose; (c) constituted an \nempirical study of educational needs with explicit curricular \nrecommendations; (d) described an educational intervention intended for \ninstitutional implementation; or (e) constituted a foundational position paper \ndirectly addressing accreditation or curriculum standards. \n• Date range: Studies published between 1 January 2018 and 30 April 2026. \nThis date range was selected to capture the emergence of contemporary AI \napplications in dental education while maintaining currency with recent large \nlanguage model developments. \n• Language: English language publications only, including those with English \nfull text versions of non-English original studies. \nExclusion criteria \n• Large language model performance studies (e.g., LLM performance on \nmultiple-choice examinations) that did not propose curricular implications, \nexcluded as they assess AI capability rather than educational intervention or \ncurriculum need. \n• Single class pilots with fewer than 30 participants and no discussion of \ninstitutional integration, excluded as they do not provide scalable evidence \nrelevant to accreditation standards. \n• AI versus clinician accuracy comparisons without educational framing, \nexcluded as they address clinical performance rather than educational \noutcomes. \n• Knowledge, attitude, and practice (KAP) surveys without explicit \ncurricular recommendations or with fewer than 100 participants, excluded as \nthey do not directly address curriculum or accreditation reform at sufficient \nscale. \n\n• Bibliometric or scoping reviews that did not directly inform curriculum \ndesign, excluded as secondary syntheses unless they provided unique \ncurriculum framework analysis. \n• Conference abstracts, letters, editorials, and other non-peer \nreviewed material, excluded as they do not present peer reviewed original \nfindings subject to methodological appraisal. \n• Non-English language publications without an English full text version, \nexcluded due to resource and translation validity constraints. \nDisagreements at the eligibility screening stage were resolved by consensus between \nreviewers, with a third reviewer available to adjudicate if consensus could not be \nreached.",
+    "methods_information_sources": "A single comprehensive search of MEDLINE (via PubMed) was conducted, covering \npublications from 1 January 2018 to 30 April 2026. PubMed was selected for its \ncomprehensive coverage of dental and biomedical education research and indexing \nof key journals where relevant literature appears, including the Journal of Dental \nEducation, European Journal of Dental Education, International Dental Journal, \nJournal of Dental Research, and Journal of Dentistry (McGowan et al., 2016). Single \ndatabase searches in scoping reviews are methodologically defensible when the \nchosen database aligns with the research aim and the limitation is explicitly \nacknowledged (Levac et al., 2010; Peters et al., 2020). \nGrey literature was deliberately excluded from this review. Conference abstracts, \ndissertations, preprint servers, and unpublished institutional reports were not \nsearched, as the review prioritised peer reviewed evidence suitable for informing \naccreditation standards. This decision is acknowledged as a limitation that may have \nexcluded emerging institutional innovations not yet reported in indexed journals. \nTo strengthen search sensitivity, reference lists of all included studies and three \ncomparator reviews were hand searched for additional eligible papers; no further \nstudies met the inclusion criteria (Aura-Tormos et al., 2026; Kong et al., 2025; \nIniesta and Pérez-Higueras, 2026). \nThe most recent search was conducted on 30 April 2026.",
+    "methods_data_charting": "\nThe review team iteratively developed a structured data-charting form and pilot-\ntested it on five included studies before applying it to the full corpus. The form was \nrefined following pilot testing to ensure consistency and completeness of extraction. \nData were extracted under the following headings: \n• Bibliographic details: First author, year, country, institutional setting \n• Study design: Design classification and sample size \n• Participants: Learner or educator population characteristics \n• Intervention/AI tool and comparator: Type of AI system, comparison \ncondition if applicable \n• Outcome measures: Educational outcomes assessed, including Kirkpatrick \nlevel where applicable \n• Key findings: Quantitative results and main qualitative themes \n• Reported limitations: Study reported methodological constraints \n• Relevance to review question: Explicit connection to accreditation, \ncurriculum integration, or competency framework development \nOne reviewer performed data extraction, with verification of a random 20% sample \nby a second reviewer. Disagreements were resolved through discussion, with \nrecourse to a third reviewer if consensus could not be reached. All extraction \ndecisions were logged to maintain an audit trail. \nAI assisted extraction was not used in this review; all charting was performed \nmanually by human reviewers. \nCorresponding authors were not contacted for unclear or missing data, as the review \nprioritised mapping the evidence as reported rather than augmenting individual \nstudies. \nEach cell in the extraction table was populated directly from the source paper's \nreported findings, with full text retrieval employed where abstracts did not provide \nsufficient detail. This approach enabled comparison of included studies across a \ncommon set of variables while preserving the evidential differences between \nframeworks, surveys, interventions, and measurement studies.",
+    "results_synthesis": "\nThe synthesis followed JBI scoping review methodology (Peters et al., 2020) and \nemphasised descriptive mapping of evidence rather than inferential synthesis or \nmeta-analysis. The approach was informed by Levac et al.'s (2010) recommendation \nthat synthesis structure should emerge iteratively from engagement with included \nliterature, rather than being imposed a priori. \nThe charted corpus was summarised descriptively by frequency counts of studies by \ncountry, publication year, study design (framework development, survey, \nintervention, measurement study, review), and target population (dental students, \ndental educators, or both). Two reviewers inductively and iteratively coded charted \nextractions to identify convergent themes across studies, with disagreements \nresolved through discussion and recourse to a third reviewer where necessary. \nThemes were organised by the type of evidence each study contributed to the \naccreditation question: curriculum frameworks, needs surveys, educator readiness \nstudies, and controlled interventions each address distinct aspects of whether and \nhow AI should appear in accreditation standards. \nStudies were grouped into six organisational tiers reflecting their distinct evidential \nroles: (1) curriculum frameworks and foundational position papers; (2) empirical \nevidence on educational needs; (3) educator and faculty readiness; (4) curriculum \nintegration interventions; (5) educational measurement and assessment validity; (6) \ncomparator reviews. These tiers did not constitute a quality hierarchy but served as a \npresentational device to clarify what each study could contribute to policy formation. \nNo formal quality or risk of bias appraisal was undertaken, consistent with JBI \nguidance that scoping reviews prioritise mapping breadth of evidence rather than \nappraising individual study quality (Peters et al., 2020). \nSynthesised findings were mapped back to the research question and the PCC \nframework, identifying which AI competencies are supported by consensus \n(Concept), which populations have been studied (Population), and in which \neducational or regulatory contexts the evidence applies (Context). \n \n \n \n \n \n\nResults",
+    "results_characteristics": "The PubMed search identified 488 unique records published between 1 January 2018 \nand 30 April 2026. Screening against eligibility criteria focused on accreditation and \ncurriculum yielded 28 studies for synthesis. Of the 28 included studies, 21 (75%) \nwere published in 2024 or later, indicating rapid recent growth. The corpus spans \nthirteen countries plus four multinational studies and includes three curriculum \nframeworks or position papers, six cross sectional surveys, four educator readiness \nstudies, seven educational interventions, five educational measurement studies, and \nthree comparator reviews (Table 1). The dominant participant populations were \nundergraduate dental students, dental educators and faculty, and postgraduate \ndental residents. The evidence base is weighted towards perceptions, readiness, and \nearly implementation rather than long term outcome evaluation. Thematic findings \nacross these studies are synthesised in the following subsection. \n \nTable 1. Characteristics of included studies \nFirst \nauthor \n(year) \nCountry Design Population \n(N) \nIntervention \n/ focus \nKey findings (short) \nSchwendicke \n(2022) \nInternational Curriculum \nframework \ndevelopment \nExpert \nconsensus \npanel \nFour domain \nAI curriculum \nfor dentistry \nDefined competencies: \nterminology, use cases, \nevaluation metrics, \ngovernance \nIslam \n(2022) \nUnited States Conceptual \npaper \nMulti \ninstitutional \n(7 schools) \nOrganizational \nAI adoption \nframework \nFour-frame model: \nstructural, human \nresource, political, \nsymbolic \nSchwendicke \n(2020) \nInternational Narrative \nreview \nNot \napplicable \nFoundational \njustification for \nAI education \nIdentified barriers: data, \nrigour, ethics, oversight \nneeds \nKavadella \n(2026) \nMultinational Cross sectional \nsurvey \nUG students \n(N=508) \nAI knowledge, \nperceptions, \neducational \nneeds \n76.2% general AI \nawareness; 34.7% dental \nAI knowledge; 53.7% \nfelt unprepared \nUribe \n(2024) \nWorldwide Cross sectional \nsurvey \nDental \neducators \n(N=428) \nEducator \nperceptions of \nAI chatbots \n31% current AI use; \n53.9% concerned about \nreduced human contact \n\nEllakany \n(2025) \nMulti country Cross sectional \nsurvey \nStudents \nand dentists \n(N=NR) \nAI usage by \neducational \nlevel and \nspecialty \nGraduates higher use in \nprosthodontics, \nrestorative; UG higher \nin treatment planning \nPauwels \n(2021) \nBrazil Pre/post \nlecture \nintervention \nStudents \nand dentists \n(N=293) \nAttitude \nchange after AI \nlecture \nSingle lecture increased \nagreement on AI roles, \nreduced concerns \nAlkahtany \n(2026) \nSaudi Arabia Cross sectional \nsurvey \nUG and PG \nstudents \n(N=321) \nAI awareness \nand utilisation \n67.3% general \nawareness; 12.82% \nclinical use; 38% formal \neducation \nSuri (2026) United States Cross sectional \nsurvey \nThird year \nstudents \n(N=66) \nPerceptions of \nAI in radiology \neducation \n89.4% felt AI improved \ndetection; only 16.7% \nfelt curriculum prepared \nthem \nLeung \n(2026) \nInternational Mixed methods \nlive polling \nDental \neducators \n(N=65) \nEducator use \nof AI for \nassessment \n61.9% not routinely \nusing AI; 63% received \ntraining; 67% concerned \nabout student use \nAbdullah \n(2025) \nPakistan Mixed methods \nsurvey and \nFGD \nFaculty \n(N=400) \nFaculty AI \nknowledge and \nattitudes \n<20% understood \nML/DL terms; 81% \nacknowledged training \nneed; positive attitudes \noverall \nOliveira \nMatos \n(2025) \nUnited States Institutional \npilot \ndescription \nFaculty \n(N=NR) \nLLM use for \ninstructional \ndesign \nLLMs reduced routine \ntasks; allowed more \npedagogy focus; no \nquantitative outcomes \nGoey (2025) Netherlands Cross sectional \nsurvey \nDentists and \nstudents \n(N=166) \nAI \nacceptability \namong Dutch \ndental \nprofessionals \nPositive views; AI seen \nas supportive tool, not \nthreatening \nCaldwell \n(2026) \nUnited States Dual phase \npre/post \nintervention \nFirst and \nthird year \nstudents \n(N=82) \nAI assisted \ncaries \ndetection \ntraining \n43–46% increase in \ndetection accuracy post \ntraining \nGlick (2022) United States Two arm-\ncontrolled \nstudy \nDS3 and \nDS4 \nstudents \n(N=41) \nExplainable AI \noverlay for FI \ndetection \nNo accuracy \nimprovement; evidence \nof automation bias on \none task \nSchropp \n(2024) \nDenmark Randomised \ncontrolled trial \nStudents \n(N=74) \nAI training \ntransfer to \nunaided \nperformance \nAI training did not \nimprove subsequent \nunaided caries detection \n\nOr (2026) Australia Within subject \ntrial \nFirst- and \nsecond year \nDMD \n(N=31) \nGPT-4 VP \nchatbot for \nhistory taking \nSignificant \nimprovement in \nperceived competence; \nsecond years valued \nmore \nEggmann \n(2026) \nSwitzerland Within subject \nquasi \nexperimental \nClinical-year \nstudents \n(N=49) \nAI generated \npodcasts in \nflipped \nclassroom \nHigh satisfaction; \nincreased engagement \nvs conventional \nseminars \nUmer \n(2025) \nPakistan Design based \nresearch mixed \nmethods \nPG residents \n(N=16) \nCustom LLM \nfor journal-\nclub \npreparation \n53% positive experience; \nimproved \ncomprehension and \nconfidence \nKavadella \n(2024) \nCyprus Mixed methods \nclassroom \nimplementation \nSecond year \nstudents \n(N=77) \nChatGPT vs \nliterature \nsearch for \nassignment \nChatGPT group \nperformed significantly \nbetter on MCQ \n(p=0.045) \nLafourcade \n(2025) \nFrance Comparative AI \naccuracy \nbenchmark \nExpert \nvalidated \nMCQs \n(N=517) \nLLM accuracy \non \nrestorative/end\nodontics \nChatGPT-4 and Claude \n3 higher accuracy than \nMistral 7B; moderate \nperformance overall \nDavies \n(2026) \nUnited States Comparative \ndiagnostic \naccuracy \nPredoctoral \nstudent’s vs \nGenAI \nDifferential \ndiagnosis on \noral pathology \nGenAI 95.65% vs \nstudents 78.92%; AI \nadvantage likely reflects \nMCQ format \nJi (2026) United States Comparative \ndiagnostic \naccuracy \nFaculty \n(N=5) vs \nChatGPT-4 \nPeriodontal \nclassification \naccuracy \n2 of 5 faculty \noutperformed ChatGPT-\n4; AI not uniformly \nsuperior \nKalaimani \n(2023) \nIndia Cross-sectional \nKAP survey \nDentists and \nstudents \n(N=1000) \nKnowledge, \nattitude, \npractice of AI \n63.5% aware; >60% \nagreed curriculum \nshould include AI; \n26.9% feared \nreplacement \nYüzbaşıoğlu \n(2021) \nTurkey Cross-sectional \nsurvey \nUG students \n(N=1103) \nAttitudes and \nperceptions \ntoward AI \n48.4% basic knowledge; \n74.6% supported UG \ncurriculum inclusion; \n79.8% supported PG \nAura-\nTormos \n(2026) \nSpain Systematic \nreview \nStudies on \nChatGPT \n(N=60) \nPedagogical \nuses of \nChatGPT in \ndental \neducation \nPerceived as useful; \nconcerns about \nmisinformation, \noverreliance, reduced \ncritical thinking \nKong (2025) Hong Kong Scoping review LLM studies \n(N=37) \nApplications, \nchallenges, \n7 domains identified; \nchallenges: inaccuracy, \n\nprospects of \nLLMs \nno guidelines, ethics, \ncost \nIniesta \n(2026) \nSpain Bibliometric \nanalysis \nDocuments \n(N=54) \nGlobal \nresearch trends \nin AI in dental \neducation \nPublication increases \n2021–2024; key themes: \nLLMs, chatbots, clinical \ndecision support \n \n \nSynthesis of results \n \nTheme 1: Competency frameworks and curriculum integration \nA global competency framework for AI in dentistry was first published in 2022 \n(Schwendicke et al., 2022), establishing four learning outcome domains: terminology \nand machine learning reasoning, use cases and software setup, evaluation metrics \nand impact, and generalisability, accountability, and governance. Islam et al. (2022) \ncomplemented this by proposing an organisational adoption framework emphasising \nstructural, human resource, political, and symbolic dimensions. Schwendicke, Samek \nand Krois (2020) provided foundational justification by highlighting data \navailability, methodological rigour, ethics, and the need for human oversight. \nHowever, subsequent reviews suggest that integration into curricula has been uneven \nand frequently limited in depth (Aura-Tormos et al., 2026; Kong et al., 2025; Iniesta \nand Pérez-Higueras, 2026). The gap is not the absence of ideas but the absence of \nconsistent translation from consensus into practice. \n \nTheme 2: Educational needs and learner readiness \nSix studies provided empirical evidence on learner and educator needs. Kavadella et \nal. (2026) surveyed 508 undergraduate students across eight countries; although \nover three quarters reported a broad understanding of AI, just over one third were \nfamiliar with its applications in dentistry, and more than half considered their \nexisting training insufficient for clinical AI use. Ellakany et al. (2025) found that \nprior AI use varied by educational level and specialty, with graduates reporting \ngreater use in prosthodontics, restorative dentistry, and implantology, while \nundergraduates reported more use in treatment planning and selected specialties. \nPauwels and Del Rey (2021) reported that a single one-hour introductory lecture \nincreased agreement about AI's future role and reduced concern that AI might \n\nreplace radiologists. Alkahtany et al. (2026) found that among Saudi dental students, \nroughly two thirds indicated awareness of AI in general, yet fewer than 13% had \napplied it clinically and only 38% had received any formal instruction. Suri et al. \n(2026) showed that after exposure to Overjet Caries Assist, most students believed AI \nimproved detection and interpretation, but only 16.7% felt their curriculum had \nprepared them for clinical use; that study also identified a need for structured faculty \ntraining, earlier exposure, and explicit attention to automation bias. Uribe et al. \n(2024) surveyed 428 educators worldwide and found that whilst nearly one third \nreported current AI use, more than half expressed apprehension about diminished \ninterpersonal contact, with the lack of explicit protocols emerging as the \npredominant worry. \n \nTheme 3: Educator and faculty readiness \nFour studies addressed educator and faculty readiness. Leung et al. (2026) found \nthat nearly two thirds of international educators did not regularly apply AI in \nassessment design, and a similar proportion worried about student use of AI in \nwritten assignments. Abdullah et al. (2025) reported that under one fifth of",
+    "discussion_summary": "This review identifies a literature base that is growing rapidly but remains uneven in \ndepth and maturity. The objective was to map the empirical evidence to determine \nwhat this evidence can and cannot support at the level of accreditation requirements. \nFour principal findings dominate the evidence base: first, a credible international \ncurriculum framework exists but implementation remains fragmented; second, \nfaculty readiness rather than student interest or AI capability constrains \nimplementation; third, intervention evidence is mixed, with the sole RCT failing to \nshow skill retention and the only explainable AI experiment suggesting automation \nbias; fourth, no included intervention reached Kirkpatrick Level 3 or 4, meaning the \nevidence base speaks to reactions and short term learning but not to sustained \nbehaviour or patient outcomes. \nFor educators, the evidence suggests that AI literacy at the knowledge level, \nencompassing critical appraisal of AI outputs, recognition and mitigation of \nautomation bias, and ethical frameworks, can be justified but applied competencies \nremain aspirational pending stronger intervention evidence. Students may value AI \ntools, yet they also perceive a gap between the technology they encounter and the \ncurriculum that prepares them to use it (Suri et al., 2026). For researchers, the \nevidence base reveals substantial gaps: no study assessed behaviour change in \nclinical practice or patient level outcomes; most interventions were single institution \npilots with short follow up; controlled designs were rare, and when employed \n(Schropp et al., 2024; Glick et al., 2022) they revealed limitations rather than \nconfirming benefits. Multi institution, longitudinal, and comparator group studies \nare urgently needed, as are studies assessing not whether students react positively to \nAI but whether they deploy it safely, critically, and effectively in authentic clinical \nsettings. For accreditors and policymakers, the current evidence supports requiring \nfoundational AI literacy, terminology, evaluation metrics, ethical reasoning, and bias \nmitigation, while treating applied clinical competencies as recommended rather than \nmandatory. Evidence that an AI system performs well on a dental task does not \nconstitute evidence that students should be required to learn that system, or that \nschools should be accredited on that basis (Lafourcade et al., 2025; Ji et al., 2026). \nAccreditation standards that compel AI integration without parallel investment in \n\nstaff development risk imposing an unsupported obligation, as readiness studies \nconsistently indicate that routine AI use among teaching staff remains limited and \nconfidence is uneven (Uribe et al., 2024; Leung et al., 2026; Abdullah et al., 2025). \nThe distinction between literacy and competence is central: schools can reasonably \nbe expected to teach students to interrogate AI outputs, identify limitations, and \nresist blind reliance, but cannot yet be held accountable for guaranteeing that \ngraduates will deploy AI safely and effectively across all clinical contexts as a formal \ngraduate competency. \nThe shape of the evidence base itself warrants reflection. Geographically, the corpus \nis concentrated in high income Anglophone and European settings, with 75% of \nstudies published in 2024 or later, indicating both rapid recent growth and limited \ntemporal depth. Study designs are weighted toward cross-sectional surveys and \nsingle institution pilots; only one randomised controlled trial was identified, and no \nstudy assessed workplace behaviour change or patient outcomes. This distribution \nreflects an evidence base at an early stage of maturity: consensus frameworks have \nbeen proposed, needs have been surveyed, and small-scale feasibility has been \ndemonstrated, but robust experimental evidence and higher order outcomes remain \nabsent. The predominance of Level 1 and Level 2 Kirkpatrick, outcomes reaction and \nlearning, over Level 3 and Level 4 outcomes, behaviour and results, is consistent with \nthis developmental trajectory but limits the confidence with which findings can \ninform regulatory standards. Contextual variation across the included studies is \nsubstantial: awareness, institutional readiness, and implementation feasibility differ \nmarkedly by country, institution, and user group. This heterogeneity does not \ninvalidate the synthesis, but it suggests that accreditation standards function more \neffectively when written as outcomes and principles rather than rigid curricular \ninventories, permitting local adaptation while maintaining accountability for core \ncompetencies. The evidence currently supports a tiered approach: requiring AI \nliteracy, ethical awareness, and critical appraisal as mandatory; recommending \napplied competencies as aspirational; and mandating institutional evidence of faculty \npreparation and curricular mechanisms to support implementation.",
+    "discussion_limitations": "Several limitations of this scoping review should be acknowledged. \nDatabase coverage: The search was restricted to a single database (MEDLINE via \nPubMed). While PubMed provides comprehensive coverage of dental and biomedical \neducation research, additional databases such as ERIC, Embase, Web of Science, and \nthe Cochrane Library may have yielded further relevant studies, particularly \neducational research not indexed in MEDLINE. This choice prioritised precision and \nmanageability over exhaustive retrieval and is consistent with pragmatic scoping \nreview approaches, but it may have excluded relevant literature. \nGrey literature exclusion: Conference abstracts, dissertations, preprint servers, \nand unpublished institutional reports were deliberately excluded. This decision \nfocused the review on peer reviewed evidence suitable for informing accreditation \nstandards, but it may have missed emerging institutional innovations, pilot projects, \nor policy documents not yet disseminated through indexed journals. \nLanguage restriction: Only English language publications were included. This \nrestriction likely excluded relevant literature published in languages such as Spanish, \nPortuguese, German, French, Chinese, and Arabic, potentially underrepresenting AI \nintegration efforts in non-Anglophone dental education systems and limiting the \ngeographic representativeness of the synthesis. \nSingle reviewer screening and charting: Screening and data charting were \nconducted by a single reviewer, with verification of a subset by a second reviewer. \nWhile all decisions were logged to maintain an audit trail, dual independent \nscreening and charting would have strengthened the reliability of study selection and \ndata extraction, reducing the risk of inadvertent exclusion or charting error. \nAbsence of formal critical appraisal: No formal quality or risk of bias appraisal \nwas undertaken. This aligns with JBI scoping review guidance, which prioritises \nmapping breadth over appraising individual study quality, but it limits the ability to \ndistinguish higher quality evidence from lower quality evidence when drawing \nimplications for practice or policy. \nThese limitations do not invalidate the mapping function of this scoping review, \nwhich was to identify what types of evidence currently inform AI competency \nframeworks, curriculum integration, and accreditation standards in dental \neducation, and to characterise the scope and distribution of that evidence base. \n \n\n \n \nConclusion \n \nThis scoping review mapped the current evidence on artificial intelligence in dental \neducation and its implications for accreditation standards across 28 included studies, \nidentifying five principal themes: competency frameworks and curriculum \nintegration, educational needs and learner readiness, educator and faculty readiness, \ncurriculum integration interventions, and educational measurement and assessment \nvalidity. \nSummary of findings: A credible international competency framework for AI in \ndentistry exists, establishing four learning outcome domains encompassing \nterminology, use cases, evaluation metrics, and governance. However, \nimplementation into curricula has been uneven and frequently limited in depth. \nStudent awareness of AI in general is widespread, yet familiarity with dental AI \napplications and confidence in clinical use remain low, with more than half of \nsurveyed students considering their existing training insufficient. Faculty readiness \nemerges as the principal constraint on implementation: across international surveys, \nfewer than one third of educators reported routine AI use, and the majority \nexpressed concern about the lack of explicit protocols and training. Intervention \nevidence is mixed. The sole randomised controlled trial found that skills acquired \nduring AI assisted training did not persist when support was removed, and the only \ncontrolled experiment involving explainable AI revealed evidence of overreliance on \nmachine suggestions. Favourable intervention outcomes were constrained by \nindustry authorship, single institution recruitment, possible novelty bias, or \ndependence on self-reported rather than objectively measured endpoints. No \nincluded intervention assessed behaviour change in clinical practice or patient level \noutcomes; the evidence base speaks to reactions and short-term learning but not to \nsustained competence or results. \nImplications for practice: Programme leads might consider introducing AI \nliteracy at the knowledge level, encompassing terminology, evaluation metrics, and \nthe interpretation of probabilistic outputs, as a foundational component of the \ncurriculum, recognising that applied clinical competencies remain aspirational \npending stronger intervention evidence. Early exposure to AI concepts, integrated \n\nwith existing courses in research methods, evidence-based practice, or digital \ndentistry, may address the gap students perceive between the technology they \nencounter and the curriculum that prepares them to use it. Explicit attention to the \nlimitations of AI systems, including the tendency to over rely on machine generated \nrecommendations, warrants inclusion in clinical reasoning and diagnostic curricula. \nFaculty development emerges as a prerequisite for effective implementation: without \ninstitutional investment in staff training, curricular AI content risks becoming \nsymbolic rather than transformative. \nImplications for policy and accreditation: Accreditation bodies may wish to \nconsider requiring foundational AI literacy, including critical appraisal of AI outputs, \nrecognition of system limitations, and ethical reasoning under uncertainty, while \ntreating applied clinical competencies as recommended rather than mandatory until \nstronger evidence of durable skill transfer and workplace behaviour change becomes \navailable. Standards that compel AI integration without parallel expectations for \nfaculty development risk imposing obligations that institutions cannot yet meet. \nGiven the substantial contextual variation observed across the included studies in \nawareness, institutional readiness, and implementation feasibility, accreditation \nstandards may function more effectively when framed as outcome-based \nexpectations with locally adaptable implementation pathways, rather than as \nprescriptive lists of tools, platforms, or fixed curricular content. Evidence that an AI \nsystem performs well on a dental task does not constitute evidence that students \nshould be required to learn that system or that schools should be accredited on that \nbasis; capability findings and curricular findings address distinct regulatory \nquestions. \nImplications for future research: The evidence base would benefit from \ncontrolled intervention studies with longer follow up periods, assessing whether AI \nassisted training improves diagnostic or clinical decision-making performance when \nmeasured weeks or months after the intervention and in the absence of continued AI \nsupport. Studies evaluating the effect of explainable AI on calibration, whether \nlearners appropriately adjust their reliance on machine recommendations based on \ncontextual cues and their own expertise, would address the automation bias findings \nfrom the sole controlled experiment in this corpus. Multi institution collaborations \nare needed to test the generalisability of single site pilot findings and to identify \nwhich contextual factors moderate intervention success. Longitudinal cohort studies \n\ntracking graduates' actual use of AI tools in clinical practice and linking that use to \npatient outcomes or practice efficiency, would provide the Kirkpatrick Level 3 and \nLevel 4 evidence currently absent from the literature. Finally, implementation \nscience studies examining how schools successfully integrate faculty development, \ncurricular reform, and infrastructure investment would offer practical guidance for \nthe translation gap identified across frameworks, needs surveys, and readiness \nstudies. \nThis review contributes to the health professions education literature by \ndistinguishing the types of evidence available to inform AI related accreditation \nstandards, and by clarifying the boundaries between what current evidence can \njustify and what remains aspirational, thereby supporting proportionate and \nevidence informed policy development in dental education. \n \n \n \n \nReferences \n1. Schwendicke F, Chaurasia A, Wiegand T, et al. Artificial intelligence for oral \nand dental healthcare: Core education curriculum. Journal of Dentistry. \n2022;128:104363. doi:10.1016/j.jdent.2022.104363 \n2. Islam NM, Laughter L, Sadid-Zadeh R, et al. Adopting artificial intelligence in \ndental education: a model for academic leadership and innovation. Journal of \nDental Education. 2022;86(11):1545-1551. doi:10.1002/jdd.13010 \n3. Schwendicke F, Samek W, Krois J. Artificial intelligence in dentistry: chances \nand challenges. Journal of Dental Research. 2020;99(7):769-774. \ndoi:10.1177/0022034520915714 \n4. Kavadella A, Uribe SE, da Silva MAD, et al. Dental students' knowledge, \nperceptions, and educational needs regarding artificial intelligence: a \nmultinational cross-sectional survey. BMC Medical Education. 2026;26(1). \ndoi:10.1186/s12909-026-08699-6 \n5. Uribe SE, Maldupa I, Kavadella A, et al. Artificial intelligence chatbots and \nlarge language models in dental education: Worldwide survey of educators. \nEuropean Journal of Dental Education. 2024;28(4):865-876. \ndoi:10.1111/eje.13009 \n\n6. Ellakany P, Tauqir S, Ali S, Mikhail SS. Artificial intelligence usage among \ndental students/dentists of different educational level: a multi-country survey. \nBMC Oral Health. 2025;26(1):81. doi:10.1186/s12903-025-07476-z \n7. Pauwels R, Del Rey YC. Attitude of Brazilian dentists and dental students \nregarding the future role of artificial intelligence in oral radiology: a \nmulticenter survey. Dentomaxillofacial Radiology. 2021;50(5):20200461. \ndoi:10.1259"
+  },
+  "critic_reports": {
+    "introduction_rationale": {
+      "section_id": "introduction_rationale",
+      "verdict": "reject",
+      "overall_score": 18,
+      "compliance_score": 10,
+      "faithfulness_score": 70,
+      "scope_score": 40,
+      "length_score": 0,
+      "requirement_checks": [
+        {
+          "requirement": "Paragraph 1: Why the broader topic matters in HPE / dental education — the practice context, the policy context, or the educational landscape that makes this worth studying.",
+          "status": "missing",
+          "evidence": "The draft is a single sentence fragment; there is no paragraph framing the broader practice, policy, or educational context.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Paragraph 2: What is already known and what is not — frame the gap or fragmentation in the literature. This should motivate the scoping review by showing that a mapping exercise is needed before more targeted synthesis is possible.",
+          "status": "partially_met",
+          "evidence": "The fragment alludes to evidence being 'fragmented across capability studies, attitude surveys, and small educational pilots', but this is one clause, not a developed paragraph, and offers no characterisation of what IS known.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Paragraph 3: Why a scoping review specifically — invoke Arksey & O'Malley (2005), Levac et al. (2010), and/or Peters et al. (2020) to justify scoping methodology when the literature is heterogeneous and the goal is breadth.",
+          "status": "missing",
+          "evidence": "No methodological justification for a scoping review is present; none of Arksey & O'Malley, Levac et al., or Peters et al. are cited or paraphrased.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Markdown prose, three paragraphs.",
+          "status": "missing",
+          "evidence": "The draft is a single incomplete sentence beginning mid-clause with a lowercase 'how'. There are no paragraph breaks and no three-paragraph structure.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Word target 380–700 words.",
+          "status": "missing",
+          "evidence": "The draft is 35 words — roughly 9% of the lower bound. It is more than 90% below target.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Avoid grandiose openings; begin with a specific, defensible factual claim.",
+          "status": "partially_met",
+          "evidence": "The fragment is not grandiose, but it begins mid-clause ('how artificial intelligence...') with no preceding subject, so the opening is broken rather than well-crafted.",
+          "severity": "major"
+        },
+        {
+          "requirement": "Do NOT preview the review's findings.",
+          "status": "met",
+          "evidence": "No findings are previewed.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "Do NOT state the specific research questions here.",
+          "status": "met",
+          "evidence": "No research question is stated.",
+          "severity": "minor"
+        }
+      ],
+      "citation_checks": [],
+      "revision_notes": [
+        "1. The draft is a 35-word sentence fragment beginning mid-clause ('how artificial intelligence...'). Rewrite as a complete three-paragraph section of 380–700 words.",
+        "2. Paragraph 1 must establish why AI in dental/health professions education matters — touch on the clinical adoption of AI tools (e.g. diagnostic imaging, caries detection, treatment planning), workforce readiness, and the policy/accreditation landscape that creates pressure on curricula. Open with a specific factual claim, not a grandiose statement.",
+        "3. Paragraph 2 must characterise the current literature: note what is already known (e.g. proliferating capability studies, attitude surveys, isolated educational pilots) and what is not (no consolidated mapping of how AI is being integrated into formal curricula or accreditation frameworks). Make explicit that the literature is fragmented across study types, populations, and outcomes, which precludes targeted synthesis.",
+        "4. Paragraph 3 must justify the scoping review methodology by citing Arksey & O'Malley (2005), Levac et al. (2010), and/or Peters et al. (2020), explaining that scoping reviews are indicated when the goal is to map breadth, clarify concepts, and identify gaps in a heterogeneous evidence base rather than answer a narrow effectiveness question.",
+        "5. Remove or rephrase the clause 'no synthesis focused on accreditation policy' unless this gap statement is genuinely supported — and frame it as a literature gap, not a preview of findings.",
+        "6. Ensure UK English throughout (e.g. 'curricula' is fine; check spellings like 'behaviour', 'organisation' in the rewrite)."
+      ],
+      "strengths": [
+        "The fragment correctly identifies a relevant gap framing (fragmentation across capability studies, attitude surveys, and pilots) that can be developed into Paragraph 2.",
+        "No fabricated citations are present.",
+        "The section avoids previewing findings and avoids stating the formal research question, respecting the scope guardrails."
+      ],
+      "word_count": 35,
+      "word_target": [
+        380,
+        700
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:18:34.089131+00:00"
+    },
+    "introduction_objectives": {
+      "section_id": "introduction_objectives",
+      "verdict": "reject",
+      "overall_score": 18,
+      "compliance_score": 10,
+      "faithfulness_score": 100,
+      "scope_score": 60,
+      "length_score": 20,
+      "requirement_checks": [
+        {
+          "requirement": "An opening sentence stating the review's overarching aim (typically: 'The aim of this scoping review is to map / characterise / examine ... within the context of ...').",
+          "status": "missing",
+          "evidence": "The prose is a fragment beginning mid-sentence with 'curriculum integration, and educator readiness'. There is no introductory clause stating 'The aim of this scoping review is to...'.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "An explicit numbered or bulleted list of specific objectives or sub-questions (typically 3–5). Each should be answerable by the kind of evidence a scoping review can surface.",
+          "status": "missing",
+          "evidence": "No list of any kind is present in the prose. Specific sub-objectives are entirely absent.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A closing sentence explicitly naming the PCC framework elements: the Population (P), the Concept (C), and the Context (C) the review addresses.",
+          "status": "missing",
+          "evidence": "There is no mention of the PCC framework, and Population/Concept/Context are not explicitly labelled.",
+          "severity": "critical"
+        }
+      ],
+      "citation_checks": [],
+      "revision_notes": [
+        "1. The section is a 24-word fragment and appears truncated. Draft the full section from scratch to reach the 140–280 word target.",
+        "2. Open with a complete topic sentence of the form: 'The aim of this scoping review is to map [the concept] in [the context] among [the population].' Do not begin mid-sentence.",
+        "3. Add an explicit numbered list of 3–5 specific objectives. Each must be phrased as a coherent question or objective answerable by scoping-review evidence (e.g., 'To identify the range of AI tools reported in dental curricula'; 'To characterise how educator readiness is described'; 'To map reported curriculum-integration strategies').",
+        "4. Conclude with a sentence that explicitly labels the PCC elements — e.g., 'The Population (P) is..., the Concept (C) is..., and the Context (C) is...'. The labels P, C, and C must appear.",
+        "5. Remove or reframe the clause 'determine what this evidence can and cannot support at the level of accreditation requirements' unless this is one of the listed objectives — currently it reads as an aside and is not anchored to the aim statement.",
+        "6. Ensure the objectives align with the themes the results_synthesis will surface (e.g., AI applications, curriculum integration, educator readiness), so methods and findings can map back to them."
+      ],
+      "strengths": [
+        "The fragment hints at relevant content areas (curriculum integration, educator readiness, accreditation) that could form the basis of well-aligned objectives once the section is properly drafted."
+      ],
+      "word_count": 24,
+      "word_target": [
+        140,
+        280
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:18:46.627354+00:00"
+    },
+    "methods_eligibility": {
+      "section_id": "methods_eligibility",
+      "verdict": "reject",
+      "overall_score": 12,
+      "compliance_score": 5,
+      "faithfulness_score": 50,
+      "scope_score": 5,
+      "length_score": 40,
+      "requirement_checks": [
+        {
+          "requirement": "An opening sentence stating that eligibility is framed using the PCC framework recommended by JBI for scoping reviews.",
+          "status": "missing",
+          "evidence": "The prose opens with 'Concept: AI in dental education...' with no mention of the JBI PCC framework or any framing sentence.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A clearly-labelled bullet list of inclusion criteria (Population, Concept, Context, Types of sources, Date range, Language).",
+          "status": "missing",
+          "evidence": "No bullet list is present; criteria are run together in paragraph form and Population is entirely absent. 'Types of sources' is not specified as an inclusion criterion.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A clearly-labelled bullet list of exclusion criteria with a one-line rationale for each.",
+          "status": "missing",
+          "evidence": "No exclusion criteria are stated anywhere in the prose.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A closing sentence stating that disagreements at the eligibility stage will be resolved by consensus, and (if more than one reviewer) by a third reviewer.",
+          "status": "missing",
+          "evidence": "The prose ends with a results statement about Kirkpatrick levels; no disagreement-resolution sentence is present.",
+          "severity": "critical"
+        }
+      ],
+      "citation_checks": [],
+      "revision_notes": [
+        "1. Discard the current draft almost entirely — it contains content belonging to at least four other PRISMA-ScR items (Information sources, Search, Data charting, Synthesis of results) and almost no Item 6 content.",
+        "2. Open with an explicit framing sentence, e.g. 'Eligibility criteria were structured using the Population, Concept, and Context (PCC) framework recommended by JBI for scoping reviews.'",
+        "3. Add a clearly-labelled bulleted Inclusion list covering all six required elements: Population (e.g. dental students, trainees, educators — confirm with reviewer), Concept (AI in dental education addressing competency frameworks, curriculum integration, or accreditation), Context (undergraduate, postgraduate, or CPD dental education settings), Types of sources (e.g. peer-reviewed primary studies, reviews — flag as assumption if not specified), Date range (1 January 2018 – 30 April 2026), and Language (English).",
+        "4. Add a clearly-labelled bulleted Exclusion list, each item with a one-phrase rationale — e.g. 'Editorials, letters and commentaries — do not present original findings'; 'Non-dental health professions education studies — out of scope of the PCC'; 'Studies of AI in clinical dentistry without an educational outcome — concept mismatch'; 'Non-English publications — translation resources unavailable'; 'Pre-2018 studies — predate contemporary generative AI tools'.",
+        "5. Remove all results content (the 'Twenty-eight studies…', Kirkpatrick levels, randomised trial findings, automation bias) — this belongs in the Results section, not Eligibility.",
+        "6. Remove the search/sources sentence ('MEDLINE via PubMed searched 30 April 2026; reference lists hand searched') — this belongs in Information Sources (Item 7) / Search (Item 8).",
+        "7. Remove the charting methods sentence (one-reviewer extraction with 20% verification, extraction categories) — this belongs in Data Charting Process (Item 10) and Data Items (Item 11).",
+        "8. Close with the required disagreement-resolution sentence, e.g. 'Disagreements at the eligibility stage will be resolved by discussion and consensus between the two reviewers, with a third reviewer adjudicating any unresolved cases.'",
+        "9. Flag explicitly any criterion adopted as a default (English-only, peer-reviewed, etc.) as an assumption to be confirmed by the reviewer, per section-specific guidance.",
+        "10. Bring the final word count to within 220–380 words; the current draft is 172 words and substantively off-topic."
+      ],
+      "strengths": [
+        "The draft does identify a plausible Concept, Context, date range, and language restriction that could be repurposed into a proper inclusion list."
+      ],
+      "word_count": 172,
+      "word_target": [
+        220,
+        380
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:19:05.004928+00:00"
+    },
+    "discussion_conclusions": {
+      "section_id": "discussion_conclusions",
+      "verdict": "reject",
+      "overall_score": 8,
+      "compliance_score": 5,
+      "faithfulness_score": 100,
+      "scope_score": 20,
+      "length_score": 0,
+      "requirement_checks": [
+        {
+          "requirement": "An opening sentence stating, in plain terms, what the review has mapped (e.g. 'This scoping review mapped the current evidence on X within the context of Y, identifying Z themes across N included studies').",
+          "status": "missing",
+          "evidence": "The draft consists of a single fragment 'Conclusions: The literature supports requiring AI literacy at the knowledge level,' with no mapping statement of scope, themes, or study count.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A short paragraph on implications for practice — what educators, clinicians, or programme leads might do given these findings. Phrase as cautious suggestions, not directives, given the mapping nature of scoping reviews.",
+          "status": "missing",
+          "evidence": "No practice implications paragraph exists; the draft terminates mid-sentence.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A short paragraph on implications for policy / accreditation — what regulators, professional bodies, or accreditation agencies might consider. (If not applicable to the topic, omit this paragraph and note it as not relevant.)",
+          "status": "missing",
+          "evidence": "No policy/accreditation paragraph or explicit statement of non-applicability is provided.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A short paragraph on implications for future research — specific gaps in the evidence base that future systematic reviews or primary studies should address.",
+          "status": "missing",
+          "evidence": "No future research paragraph is present.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A single closing sentence summarising the review's contribution.",
+          "status": "missing",
+          "evidence": "There is no closing sentence; the draft ends with a trailing comma mid-clause.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Markdown prose with three or four short paragraphs, each introduced by a bold-italic subheading (e.g. '***Implications for practice.***').",
+          "status": "missing",
+          "evidence": "No bold-italic subheadings present; no paragraph structure at all.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Hedged language proportionate to corpus size; avoid hype terms; UK English; academic neutral tone.",
+          "status": "partially_met",
+          "evidence": "The fragment 'The literature supports requiring AI literacy at the knowledge level' is directive ('requiring') rather than cautiously hedged, but is too short to fully assess.",
+          "severity": "major"
+        },
+        {
+          "requirement": "Do not introduce new themes or claims; conclusions must trace to findings already presented.",
+          "status": "partially_met",
+          "evidence": "The claim about 'AI literacy at the knowledge level' is asserted without any preceding linkage to the results_synthesis themes shown to the reviewer.",
+          "severity": "major"
+        }
+      ],
+      "citation_checks": [],
+      "revision_notes": [
+        "1. The section is an 11-word fragment and must be fully drafted to 380–700 words. Submit a complete draft, not a stub.",
+        "2. Open with a single mapping sentence following the template: 'This scoping review mapped the current evidence on [Concept] within [Context], identifying [N] themes across [N] included studies.' Populate with the actual figures from results_synthesis.",
+        "3. Add a paragraph headed '***Implications for practice.***' offering cautious suggestions for educators/programme leads, phrased as 'may consider' or 'could explore', not 'should require'.",
+        "4. Add a paragraph headed '***Implications for policy and accreditation.***' addressing regulators or professional bodies; if not applicable to the topic, state explicitly that this domain is not relevant given the charted evidence and omit the rest.",
+        "5. Add a paragraph headed '***Implications for future research.***' identifying specific, named gaps (e.g. study designs, populations, outcomes) rather than the cliché 'more research is needed'.",
+        "6. Close with a single sentence summarising the review's contribution to the field; do not introduce new findings.",
+        "7. Replace the directive phrasing 'The literature supports requiring AI literacy at the knowledge level' with hedged, evidence-proportionate language appropriate to a scoping review (e.g. 'These preliminary findings suggest...').",
+        "8. Use UK English spelling throughout and avoid hype terms ('revolutionary', 'paradigm shift', 'unprecedented').",
+        "9. Ensure every claim in the conclusions traces back to a theme already presented in results_synthesis or discussion_summary; introduce no new themes or citations here."
+      ],
+      "strengths": [
+        "No fabricated citations were introduced (though this is partly because the draft is too short to contain any)."
+      ],
+      "word_count": 11,
+      "word_target": [
+        380,
+        700
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:19:23.994838+00:00"
+    },
+    "results_critical_appraisal": {
+      "section_id": "results_critical_appraisal",
+      "verdict": "reject",
+      "overall_score": 8,
+      "compliance_score": 0,
+      "faithfulness_score": 0,
+      "scope_score": 0,
+      "length_score": 0,
+      "requirement_checks": [
+        {
+          "requirement": "Decision point at the start: state clearly whether critical appraisal of included sources was conducted in this review.",
+          "status": "missing",
+          "evidence": "The drafted prose contains no statement about whether critical appraisal was conducted. It instead presents fragments of an Abstract/Keywords, Introduction, and Methods (eligibility criteria).",
+          "severity": "critical"
+        },
+        {
+          "requirement": "If NOT conducted: a 2–3 sentence paragraph stating this and explaining that scoping reviews (per JBI guidance) typically do not include formal critical appraisal, ending by noting that a systematic review would be the appropriate next step.",
+          "status": "missing",
+          "evidence": "No such paragraph appears anywhere in the prose.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "If conducted: name the tool, report the distribution of ratings, and state whether ratings influenced inclusion or interpretation.",
+          "status": "missing",
+          "evidence": "No appraisal tool, ratings, or distribution is reported. Not applicable as written, but no alternative content is provided either.",
+          "severity": "critical"
+        }
+      ],
+      "citation_checks": [
+        {
+          "citation": "Field, 1995",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Corpus is empty; any citation in this section is a fabrication relative to charted corpus, and is also out-of-scope for a Critical Appraisal results section."
+        },
+        {
+          "citation": "Schönwetter et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; also out-of-scope content."
+        },
+        {
+          "citation": "Dzyuba et al., 2025",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Nafea, 2021",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Schwendicke et al., 2022",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Aura-Tormos et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Uribe et al., 2024",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Kavadella et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Glick et al., 2022",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Schropp et al., 2024",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Caldwell et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Kavadella et al., 2024",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Kong et al., 2025",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Iniesta and Pérez-Higueras, 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Lafourcade et al., 2025",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Ji et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in corpus; out-of-scope content."
+        },
+        {
+          "citation": "Arksey and O'Malley, 2005",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Methodological citation; out-of-scope content for this section."
+        },
+        {
+          "citation": "Levac et al., 2010",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Methodological citation; out-of-scope content for this section."
+        },
+        {
+          "citation": "Peters et al., 2020",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Methodological citation; out-of-scope content for this section."
+        },
+        {
+          "citation": "Tricco et al., 2018",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Methodological citation; out-of-scope content for this section."
+        }
+      ],
+      "revision_notes": [
+        "Discard the entire current draft. It contains tail-end Abstract/Keywords, full Introduction, and Methods/Eligibility content — none of which belongs under PRISMA-ScR Item 12/16 Results: Critical Appraisal.",
+        "Write a single short paragraph (100–280 words; ideally 80–150 words) that opens with an explicit decision statement, e.g.: 'Formal critical appraisal of included sources of evidence was not conducted in this scoping review.'",
+        "Justify the decision in 2–3 sentences grounded in scoping-review methodology: per JBI guidance (Peters et al., 2020) and Tricco et al. (2018), scoping reviews aim to map the breadth and nature of available evidence rather than to evaluate methodological quality, and formal appraisal is therefore optional and was not undertaken here.",
+        "Close by signposting that a future systematic review would be the appropriate vehicle to formally appraise the quality of the evidence base identified — particularly for the subset of intervention studies that report educational outcomes.",
+        "Ensure consistency with the Methods section: confirm that the Methods (critical appraisal sub-item) also states that no appraisal was conducted, and reference back to that statement here.",
+        "Remove all author-year citations except, at most, the two methodological anchors (Peters et al., 2020; Tricco et al., 2018) that justify the no-appraisal stance — and only if the project's citation policy permits methodological references in Results.",
+        "Do not introduce any study-level claims, ratings, or quality judgements, since no appraisal was performed."
+      ],
+      "strengths": [
+        "None applicable: the section as submitted does not address the PRISMA-ScR item it was commissioned for."
+      ],
+      "word_count": 1285,
+      "word_target": [
+        100,
+        280
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:19:48.881841+00:00"
+    },
+    "methods_information_sources": {
+      "section_id": "methods_information_sources",
+      "verdict": "reject",
+      "overall_score": 42,
+      "compliance_score": 65,
+      "faithfulness_score": 20,
+      "scope_score": 55,
+      "length_score": 100,
+      "requirement_checks": [
+        {
+          "requirement": "An opening sentence listing all electronic databases consulted, with their date ranges in parentheses.",
+          "status": "partially_met",
+          "evidence": "Opens with MEDLINE (via PubMed) with date range 1 January 2018 to 30 April 2026. However, the section-specific guidance and the spec's default list expected multiple databases (PubMed/MEDLINE, Embase, Web of Science, Cochrane Library, ERIC). Only one database is named; this should be flagged in the section even if a single-database approach was taken, but the structural requirement of 'listing all electronic databases consulted' is technically satisfied if only one was used.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A second sentence describing grey-literature sources searched, or stating that grey literature was excluded.",
+          "status": "met",
+          "evidence": "Explicitly states 'Grey literature was deliberately excluded' and names the categories not searched (conference abstracts, dissertations, preprint servers, institutional reports).",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A third sentence describing any hand-searching or reference-list snowballing of key journals.",
+          "status": "met",
+          "evidence": "States that reference lists of included studies and three comparator reviews were hand-searched.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A closing sentence giving the date the most recent search was executed.",
+          "status": "met",
+          "evidence": "'The most recent search was conducted on 30 April 2026.'",
+          "severity": "minor"
+        },
+        {
+          "requirement": "Do NOT include the search strings here — those belong in methods_search (Item 8).",
+          "status": "met",
+          "evidence": "No search strings appear.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "Do NOT include hit counts here — those belong in results_selection (Item 14).",
+          "status": "met",
+          "evidence": "No hit counts reported.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "Name databases consistently with their official titles.",
+          "status": "met",
+          "evidence": "Uses 'MEDLINE (via PubMed)' as instructed.",
+          "severity": "minor"
+        }
+      ],
+      "citation_checks": [
+        {
+          "citation": "McGowan et al., 2016",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Charted corpus is empty; this citation should not appear in an Information Sources section. Methodological citations are out of scope here and constitute a fabrication relative to the corpus."
+        },
+        {
+          "citation": "Levac et al., 2010",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in the charted corpus; methodological justification citations do not belong in this section."
+        },
+        {
+          "citation": "Peters et al., 2020",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in the charted corpus; methodological justification citations do not belong in this section."
+        },
+        {
+          "citation": "Aura-Tormos et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in the charted corpus. Cannot be verified as a comparator review."
+        },
+        {
+          "citation": "Kong et al., 2025",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in the charted corpus. Cannot be verified."
+        },
+        {
+          "citation": "Iniesta and Pérez-Higueras, 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in the charted corpus. Cannot be verified."
+        }
+      ],
+      "revision_notes": [
+        "Remove all author-year citations from this section. Methodological justifications (McGowan, Levac, Peters) belong in a methods rationale paragraph or in methods_search, not in Item 7. Comparator-review citations (Aura-Tormos, Kong, Iniesta and Pérez-Higueras) should appear elsewhere — name those reviews in methods_search or results, not here.",
+        "Remove the sentence 'Single database searches in scoping reviews are methodologically defensible when the chosen database aligns with the research aim...' — this is methodological justification/argumentation, not an enumeration of information sources. Item 7 requires factual listing only.",
+        "Remove the sentence beginning 'This decision is acknowledged as a limitation that may have excluded emerging institutional innovations...' — limitations belong in the Discussion section, not Methods. Stating that grey literature was excluded is sufficient; do not editorialise.",
+        "If only PubMed was searched, state this plainly in the opening sentence: 'A single electronic database, MEDLINE (via PubMed), was searched (1 January 2018 to 30 April 2026).' Drop the rationale clause about 'comprehensive coverage of dental and biomedical education research'; reserve that for methods_search or a protocol note.",
+        "Drop the list of named journals ('Journal of Dental Education, European Journal of Dental Education...') unless these were hand-searched directly. If they were only indexed via PubMed, listing them here misleads the reader into thinking they were separate sources. If they WERE hand-searched, move them into the hand-search sentence with explicit dates.",
+        "Tighten the hand-search sentence to state factually what was done: 'Reference lists of all included studies and of three comparator scoping/systematic reviews were screened for additional eligible records.' Do not report the outcome ('no further studies met the inclusion criteria') here — that is a results_selection finding (Item 14).",
+        "Retain the closing date sentence as written; it satisfies the Tricco et al. requirement.",
+        "After revision, target 120–160 words — the removal of off-scope material will bring the section comfortably within range."
+      ],
+      "strengths": [
+        "Date range and last-search date are explicit and unambiguous.",
+        "Grey literature decision is stated clearly rather than left ambiguous.",
+        "Database name uses the spec-mandated form 'MEDLINE (via PubMed)'.",
+        "Word count falls within the target band."
+      ],
+      "word_count": 202,
+      "word_target": [
+        120,
+        220
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:20:13.288264+00:00"
+    },
+    "methods_data_charting": {
+      "section_id": "methods_data_charting",
+      "verdict": "approve",
+      "overall_score": 86,
+      "compliance_score": 90,
+      "faithfulness_score": 100,
+      "scope_score": 85,
+      "length_score": 100,
+      "requirement_checks": [
+        {
+          "requirement": "A sentence stating that a structured data-charting form was developed iteratively by the review team and pilot-tested on a small number of included studies before full application.",
+          "status": "met",
+          "evidence": "Opening sentence: 'The review team iteratively developed a structured data-charting form and pilot-tested it on five included studies before applying it to the full corpus.'",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A bullet list naming the categories of data charted (e.g. bibliographic details; study design; participants; intervention and comparator; outcome measures; key findings; reported limitations).",
+          "status": "met",
+          "evidence": "Bullet list includes all required categories plus relevance to review question.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A sentence on the charting workflow — independent duplicate charting OR single charter with second-reviewer verification — and how disagreements were resolved.",
+          "status": "met",
+          "evidence": "'One reviewer performed data extraction, with verification of a random 20% sample by a second reviewer. Disagreements were resolved through discussion, with recourse to a third reviewer...'",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A sentence acknowledging that, where data were unclear or missing, the review team attempted to contact corresponding authors (state if this was actually done; otherwise note it as not applicable for this review).",
+          "status": "met",
+          "evidence": "'Corresponding authors were not contacted for unclear or missing data, as the review prioritised mapping the evidence as reported...'",
+          "severity": "minor"
+        }
+      ],
+      "citation_checks": [],
+      "revision_notes": [
+        "The final paragraph ('Each cell in the extraction table was populated directly from the source paper's reported findings...') drifts toward justifying methodological approach and comparing study types; consider trimming or removing as it adds little to Item 10 compliance and edges into discussion territory.",
+        "The phrase 'pilot-tested it on five included studies' is specific — confirm this number is accurate to the actual review process; if it was a different number or a pre-inclusion pilot, adjust for faithfulness.",
+        "Consider whether verification of only a 20% random sample (rather than full duplicate charting) is consistent with how rigour is described elsewhere in the manuscript; if so, no change needed, but ensure consistency across Methods sections.",
+        "Minor: 'AI assisted extraction' should be hyphenated as 'AI-assisted extraction' for UK English consistency."
+      ],
+      "strengths": [
+        "All four structural requirements are addressed clearly and in order.",
+        "Bullet list of charted fields is comprehensive and well-aligned with the extractor schema specified.",
+        "Workflow for verification, disagreement resolution, and author contact is stated transparently.",
+        "Word count sits comfortably within target range and tone is appropriately neutral and academic.",
+        "No fabricated citations — correctly avoids citing individual studies in a methods section."
+      ],
+      "word_count": 260,
+      "word_target": [
+        180,
+        320
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:20:26.104945+00:00"
+    },
+    "results_synthesis": {
+      "section_id": "results_synthesis",
+      "verdict": "reject",
+      "overall_score": 22,
+      "compliance_score": 15,
+      "faithfulness_score": 10,
+      "scope_score": 20,
+      "length_score": 40,
+      "requirement_checks": [
+        {
+          "requirement": "An opening sentence stating how many studies are synthesised and naming the major thematic groupings that emerged.",
+          "status": "missing",
+          "evidence": "The opening sentence describes methodology (JBI, Peters et al., 2020) rather than stating the number of studies synthesised or naming thematic groupings. No count of studies appears anywhere.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A series of clearly-labelled subsections (one per major theme), with each subsection: (a) defining the theme in one sentence; (b) reporting which studies contributed to it (with author-year citations); (c) summarising the direction and consistency of findings; (d) noting any methodological caveats relevant to interpretation.",
+          "status": "missing",
+          "evidence": "There are no H3 subsection headings. The six 'organisational tiers' are listed in a single inline sentence with no theme definitions, no contributing studies, no direction of findings, and no caveats per theme.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "A short closing paragraph mapping the themes back to the original research question — which sub-questions are well covered by the evidence, and which remain underexplored.",
+          "status": "partially_met",
+          "evidence": "The final paragraph mentions mapping findings back to the research question and PCC framework, but does not identify which sub-questions are well covered versus underexplored — it merely describes the intent of mapping.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Use in-text citations (Author et al., Year) drawn from charted studies.",
+          "status": "missing",
+          "evidence": "Only methodological citations (Peters et al., 2020; Levac et al., 2010) appear. No citations to charted studies are present because no synthesis of findings is performed.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Themes should be 3–6 in number.",
+          "status": "partially_met",
+          "evidence": "Six tiers are listed, which meets the count, but they are not developed as themes — they are presented as a presentational device with no content.",
+          "severity": "major"
+        },
+        {
+          "requirement": "Do NOT make recommendations for practice or future research here.",
+          "status": "met",
+          "evidence": "No recommendations are made.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "If corpus is small (<10 studies), state this explicitly and frame as preliminary mapping.",
+          "status": "missing",
+          "evidence": "No statement on corpus size or preliminary nature is made.",
+          "severity": "major"
+        },
+        {
+          "requirement": "Word target 550–1100 words.",
+          "status": "missing",
+          "evidence": "Section is 288 words, roughly 48% below the lower bound.",
+          "severity": "major"
+        }
+      ],
+      "citation_checks": [
+        {
+          "citation": "Peters et al., 2020",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Corpus is empty; this is a methodological citation rather than a charted study, but no charted-study citations appear at all, which is the deeper failure."
+        },
+        {
+          "citation": "Levac et al., 2010",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Methodological citation; not a synthesis citation. Acceptable in principle but irrelevant to Item 18 synthesis content."
+        }
+      ],
+      "revision_notes": [
+        "1. The current draft describes the synthesis METHOD (how themes were derived, JBI guidance, no quality appraisal) rather than presenting synthesised RESULTS. This content belongs in the Methods (synthesis of results approach, Item 14) section. Replace it entirely with a presentation of findings.",
+        "2. Open with a single sentence in the form: 'Across the N included studies, [X] major themes emerged: theme A, theme B, theme C, …' giving an exact study count and naming each theme.",
+        "3. Create H3 subsection headings for each of the 3–6 themes. For each theme provide: (a) a one-sentence definition; (b) a list of contributing studies with (Author et al., Year) citations drawn from the charted corpus; (c) a statement on whether findings converge or diverge, drawing on the `findings.effect_direction` field; (d) one sentence on methodological caveats (e.g. small samples, single-institution surveys).",
+        "4. Remove the inline numbered list of 'six organisational tiers' and instead develop these as the H3 subsections (if they are indeed the themes) — but ensure each is populated with charted findings, not left as a label.",
+        "5. Add a closing paragraph that explicitly maps themes to the research question: state which PCC sub-questions are well covered by the evidence and which remain underexplored. Do NOT make recommendations.",
+        "6. If the corpus contains fewer than 10 studies, add a sentence stating this and framing the synthesis as a preliminary mapping.",
+        "7. Expand the section to 550–1100 words. The current 288 words cannot support the required structure.",
+        "8. Remove methodological-justification sentences (e.g. 'No formal quality or risk of bias appraisal was undertaken…') — these belong in Methods, not in Item 18 results."
+      ],
+      "strengths": [
+        "The draft correctly avoids making recommendations for practice or future research.",
+        "The intent to map findings back to the PCC framework is signalled, even if not executed."
+      ],
+      "word_count": 288,
+      "word_target": [
+        550,
+        1100
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:20:51.603077+00:00"
+    },
+    "results_characteristics": {
+      "section_id": "results_characteristics",
+      "verdict": "reject",
+      "overall_score": 32,
+      "compliance_score": 55,
+      "faithfulness_score": 20,
+      "scope_score": 15,
+      "length_score": 30,
+      "requirement_checks": [
+        {
+          "requirement": "An opening paragraph summarising the corpus: total number of included studies, year range, geographical distribution (country counts), dominant study designs, and dominant participant populations.",
+          "status": "met",
+          "evidence": "The opening paragraph reports 28 studies, year range, country counts (thirteen plus four multinational), design breakdown, and dominant populations.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A markdown table titled 'Table 1. Characteristics of included studies' with the columns: First author (year), Country, Design, Population (N), Intervention / focus, Key findings (short).",
+          "status": "partially_met",
+          "evidence": "Title and column headings are present, but the table is not formatted as a valid markdown table (no pipes or dashes), so it will not render in Streamlit or Word.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "One row per included study. Cells must be concise (≤15 words). Use 'NR' for any field genuinely missing from the chart.",
+          "status": "partially_met",
+          "evidence": "28 rows appear present, NR is used (e.g., Ellakany, Oliveira Matos), but absence of pipe-delimited rows makes row integrity unverifiable. Some cells approach but mostly respect the 15-word limit.",
+          "severity": "major"
+        },
+        {
+          "requirement": "A closing sentence pointing forward to the thematic synthesis in the next subsection.",
+          "status": "met",
+          "evidence": "‘Thematic findings across these studies are synthesised in the following subsection.’",
+          "severity": "minor"
+        },
+        {
+          "requirement": "Do NOT analyse findings here — that is results_synthesis (Item 18). This section is descriptive only.",
+          "status": "missing",
+          "evidence": "The draft includes an entire 'Synthesis of results' section with Theme 1, Theme 2, Theme 3 narrative analysis, which belongs in Item 18, not Item 15.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Word target 280–600 words.",
+          "status": "missing",
+          "evidence": "Section is 1297 words, more than double the upper bound, primarily because of the misplaced synthesis content.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Cell content must be drawn directly from the charts — do NOT invent country, design, or N values.",
+          "status": "partially_met",
+          "evidence": "Cannot be verified against corpus (no charted studies were supplied to the reviewer); per instructions, any author-year citation must be flagged as a fabrication.",
+          "severity": "critical"
+        }
+      ],
+      "citation_checks": [
+        {
+          "citation": "Schwendicke (2022)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus was supplied; per reviewer rules this is a fabrication."
+        },
+        {
+          "citation": "Islam (2022)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Schwendicke (2020)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Kavadella (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Uribe (2024)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Ellakany (2025)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Pauwels (2021)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Alkahtany (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Suri (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Leung (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Abdullah (2025)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Oliveira Matos (2025)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Goey (2025)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Caldwell (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Glick (2022)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Schropp (2024)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Or (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Eggmann (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Umer (2025)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Kavadella (2024)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Lafourcade (2025)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Davies (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Ji (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Kalaimani (2023)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Yüzbaşıoğlu (2021)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Aura-Tormos (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Kong (2025)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        },
+        {
+          "citation": "Iniesta (2026)",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "Not in supplied corpus."
+        }
+      ],
+      "revision_notes": [
+        "Remove the entire 'Synthesis of results' block (Themes 1–3). That content belongs in the Item 18 section (results_synthesis) and must not appear in results_characteristics. Doing so will also bring the section close to the 280–600 word target.",
+        "Reformat Table 1 as a valid markdown table using pipes and a dash-separator row. Example header line: `| First author (year) | Country | Design | Population (N) | Intervention / focus | Key findings (short) |` followed by `|---|---|---|---|---|---|` and then one row per study. The current layout will not render in Streamlit or Word.",
+        "Confirm every author-year row in Table 1 maps to a study with `inclusion_recommendation == 'include'` in the project corpus. The reviewer was supplied with no charted corpus, so as the rubric stands every citation here is unverifiable; supply the chart file or remove unverifiable rows.",
+        "Tighten the opening paragraph: it currently includes the search yield ('488 unique records') and screening outcome, which belong in the PRISMA flow / Item 14 (selection of sources), not Item 15. Replace with a clean corpus-level summary (n, year range, country counts, design counts, population counts) only.",
+        "Audit cell word counts: a few cells (e.g., Schwendicke 2022 Key findings, Suri 2026 Key findings) are at or near 15 words — trim to ensure compliance.",
+        "Check the year range claim. The opening says 'published between 1 January 2018 and 30 April 2026' but the earliest included row is Schwendicke (2020). State the actual year range of the *included* corpus (2020–2026), not the search window.",
+        "Add a single forward-pointing closing sentence after the table (the current one sits before the table). Move it to immediately follow Table 1 so the reader transitions cleanly into the synthesis subsection.",
+        "Standardise the Country column: 'International', 'Multinational', 'Worldwide', 'Multi country' all appear and likely conflate distinct chart values. Use the exact charted term, or define a single label (e.g., 'Multinational') and apply it consistently."
+      ],
+      "strengths": [
+        "Opening paragraph attempts the required corpus-level descriptors (n, year span, country count, design mix, populations).",
+        "Table content is comprehensive in coverage, with one row per declared included study and use of 'NR' where data are absent.",
+        "Tone is academic and neutral, and UK English is largely maintained in the prose."
+      ],
+      "word_count": 1297,
+      "word_target": [
+        280,
+        600
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:21:27.295932+00:00"
+    },
+    "discussion_summary": {
+      "section_id": "discussion_summary",
+      "verdict": "revise",
+      "overall_score": 58,
+      "compliance_score": 60,
+      "faithfulness_score": 40,
+      "scope_score": 45,
+      "length_score": 100,
+      "requirement_checks": [
+        {
+          "requirement": "An opening paragraph (4–6 sentences) restating the review's objective in one sentence and then summarising the principal findings across themes — without re-listing them theme by theme.",
+          "status": "partially_met",
+          "evidence": "Paragraph 1 restates the objective and summarises findings, but it does so by enumerating 'first... second... third... fourth...' which is precisely the theme-by-theme re-listing the spec forbids.",
+          "severity": "major"
+        },
+        {
+          "requirement": "A second paragraph that explicitly maps the findings to relevant audiences: educators, researchers, and accreditors / policy-makers.",
+          "status": "met",
+          "evidence": "Paragraph 2 addresses educators, researchers, and accreditors/policymakers in turn with explicit signposting.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A closing paragraph reflecting on the shape of the evidence base itself — e.g. mostly survey-based, mostly single-institution, geographically concentrated — and what that shape implies for how the findings should be interpreted.",
+          "status": "partially_met",
+          "evidence": "Paragraph 3 does describe the shape (geography, designs, year span, Kirkpatrick levels) but then drifts into prescriptive recommendations ('evidence currently supports a tiered approach: requiring... recommending... mandating...'), which belongs in conclusions.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Do NOT make concrete recommendations — those go in discussion_conclusions.",
+          "status": "missing",
+          "evidence": "Paragraph 2 ('Multi institution, longitudinal, and comparator group studies are urgently needed') and paragraph 3 ('The evidence currently supports a tiered approach: requiring... recommending... mandating...') are explicit prescriptive recommendations.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Do NOT introduce findings not surfaced in the Results section.",
+          "status": "partially_met",
+          "evidence": "Cannot fully verify without the Results draft, but multiple specific author-year citations appear in what should be a Summary of Evidence section, suggesting either new evidence or improper re-citation.",
+          "severity": "major"
+        },
+        {
+          "requirement": "Tone academic, neutral, evidence-led; avoid hedge phrases and avoid speculation beyond charted evidence.",
+          "status": "partially_met",
+          "evidence": "'urgently needed' is a value-laden hedge/recommendation; 'risk imposing an unsupported obligation' is speculative interpretation beyond mapping.",
+          "severity": "minor"
+        }
+      ],
+      "citation_checks": [
+        {
+          "citation": "Suri et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus was supplied to this critique; per the spec note, any author-year citation in this section must be flagged. Also, the Summary of Evidence section is not the appropriate place to re-cite individual studies."
+        },
+        {
+          "citation": "Schropp et al., 2024",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus supplied; citation cannot be verified and should not appear in a synthesising Summary of Evidence paragraph."
+        },
+        {
+          "citation": "Glick et al., 2022",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus supplied; citation unverifiable."
+        },
+        {
+          "citation": "Lafourcade et al., 2025",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus supplied; citation unverifiable."
+        },
+        {
+          "citation": "Ji et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus supplied; citation unverifiable. A 2026 publication date is also implausible depending on the review's search cutoff."
+        },
+        {
+          "citation": "Uribe et al., 2024",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus supplied; citation unverifiable."
+        },
+        {
+          "citation": "Leung et al., 2026",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus supplied; citation unverifiable; 2026 date suspicious."
+        },
+        {
+          "citation": "Abdullah et al., 2025",
+          "in_corpus": false,
+          "matched_source_id": null,
+          "issue": "No charted corpus supplied; citation unverifiable."
+        }
+      ],
+      "revision_notes": [
+        "Remove all eight author-year citations. A Summary of Evidence section synthesises themes; individual study attribution belongs in the Results section. If a finding must be anchored, refer to it as 'the sole RCT' or 'the explainable-AI experiment' without re-citing.",
+        "Rewrite paragraph 1 so it does not enumerate findings as 'first... second... third... fourth...'. The spec explicitly forbids theme-by-theme re-listing. Instead, synthesise the cross-cutting message in 4–6 flowing sentences (e.g. that a coherent framework exists but is undermined by faculty readiness gaps, with intervention evidence confined to lower Kirkpatrick levels).",
+        "Delete the prescriptive sentence in paragraph 2: 'Multi institution, longitudinal, and comparator group studies are urgently needed...'. Recast as a descriptive evidence-gap statement (e.g. 'The evidence base contains no multi-institution longitudinal studies and no studies assessing clinical behaviour or patient outcomes.'). Recommendations belong in discussion_conclusions (Item 21).",
+        "Delete or radically soften the closing recommendation block in paragraph 3 ('The evidence currently supports a tiered approach: requiring... recommending... mandating...'). This is a concrete policy recommendation and belongs in discussion_conclusions, not in the Summary of Evidence.",
+        "Remove evaluative/speculative phrases such as 'risk imposing an unsupported obligation' and 'cannot yet be held accountable for guaranteeing...'. These exceed the interpretive remit of Item 19. Restate as what the evidence does and does not currently demonstrate.",
+        "Tighten the accreditor-facing paragraph so it maps findings to audience implications without prescribing standards. For example, 'The evidence base is sufficient to characterise foundational AI literacy needs but is insufficient to specify applied clinical competencies' is descriptive; 'accreditors should require literacy and recommend applied competencies' is prescriptive — keep the former.",
+        "In paragraph 3, retain the genuinely strong content on geography, design distribution, year span, and Kirkpatrick level distribution, but end the paragraph on an interpretive note about what this shape means for confidence in the findings, rather than on a tiered policy recommendation."
+      ],
+      "strengths": [
+        "The audience-mapping structure in paragraph 2 (educators, researchers, accreditors) is clearly signposted and addresses the spec's second structural requirement directly.",
+        "The reflection on evidence-base shape in paragraph 3 — geography, design weighting, Kirkpatrick level distribution, single RCT — is exactly the type of meta-level observation Item 19 calls for.",
+        "The literacy-versus-competence distinction is a genuinely useful interpretive frame that synthesises across themes rather than re-listing them.",
+        "Word count sits comfortably within the 380–700 target.",
+        "UK English and academic register are maintained consistently."
+      ],
+      "word_count": 682,
+      "word_target": [
+        380,
+        700
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:21:56.730902+00:00"
+    },
+    "discussion_limitations": {
+      "section_id": "discussion_limitations",
+      "verdict": "reject",
+      "overall_score": 42,
+      "compliance_score": 70,
+      "faithfulness_score": 50,
+      "scope_score": 20,
+      "length_score": 30,
+      "requirement_checks": [
+        {
+          "requirement": "An opening sentence framing this as the review team's own reflection on the limitations of the review process.",
+          "status": "met",
+          "evidence": "Opens with 'Several limitations of this scoping review should be acknowledged.'",
+          "severity": "minor"
+        },
+        {
+          "requirement": "A bullet list of 3–6 specific limitations, each with a one-sentence explanation.",
+          "status": "partially_met",
+          "evidence": "Five limitations are present and labelled by category, but they are not formatted as a markdown bullet list, and each item runs to multiple sentences rather than a single one-sentence explanation.",
+          "severity": "major"
+        },
+        {
+          "requirement": "A closing sentence acknowledging that these limitations constrain the conclusions but do not invalidate the mapping function the review is designed to perform.",
+          "status": "met",
+          "evidence": "Final paragraph of the limitations section explicitly states limitations 'do not invalidate the mapping function of this scoping review'.",
+          "severity": "minor"
+        },
+        {
+          "requirement": "Word target 280–500 words.",
+          "status": "missing",
+          "evidence": "Section is 1281 words — more than 2.5× the upper bound. Even the limitations portion alone (before the Conclusion) exceeds the cap.",
+          "severity": "critical"
+        },
+        {
+          "requirement": "Do NOT use this section to discuss limitations of included studies or of the evidence base as a whole.",
+          "status": "met",
+          "evidence": "The limitations portion correctly focuses on review process choices (database, grey literature, language, single reviewer, no appraisal).",
+          "severity": "minor"
+        },
+        {
+          "requirement": "Scope guardrail — section is Item 20 (Limitations) only.",
+          "status": "missing",
+          "evidence": "The draft includes an entire Conclusion section with Summary of findings, Implications for practice, Implications for policy and accreditation, Implications for future research, and a reference list. These belong in discussion_summary (Item 19), discussion_conclusions (Item 22), and the references section — not in Item 20.",
+          "severity": "critical"
+        }
+      ],
+      "citation_checks": [],
+      "revision_notes": [
+        "Delete everything after the closing sentence of the limitations paragraph. The 'Conclusion', 'Summary of findings', 'Implications for practice', 'Implications for policy and accreditation', 'Implications for future research', and reference list do not belong in Item 20 and must be moved to their correct PRISMA-ScR sections (Items 19 and 22).",
+        "Reformat the five limitations as a true markdown bullet list using '-' or '*' markers, not bold labels followed by paragraph prose.",
+        "Compress each bullet to a single sentence containing the limitation and a brief consequence (e.g. 'Single-database search: restricting retrieval to MEDLINE/PubMed prioritised precision but may have excluded education-specific literature indexed in ERIC, Embase, or Web of Science.'). Remove justificatory tangents such as the 'consistent with pragmatic scoping review approaches' aside.",
+        "Reduce total section length from 1281 words to between 280 and 500 words. The opening sentence, 3–6 single-sentence bullets, and a one-sentence closing should comfortably fit this envelope.",
+        "Retain the five categories chosen (database coverage, grey literature, language, single reviewer, absence of formal appraisal) — they are appropriate and specific — but trim them; do not add new categories.",
+        "Ensure no author-year or numbered citations appear in this section; the current draft includes a full reference list which must be removed entirely from Item 20."
+      ],
+      "strengths": [
+        "The five limitations selected are appropriately specific to the review process (not the evidence base or individual studies) and align with the suggested categories in the specification.",
+        "The language restriction bullet is exemplary in naming concrete excluded literatures (Spanish, Portuguese, Chinese, Arabic) rather than generic hedging.",
+        "The closing sentence correctly reframes the limitations as constraining but not invalidating the mapping function of the review."
+      ],
+      "word_count": 1281,
+      "word_target": [
+        280,
+        500
+      ],
+      "model": "claude-opus-4-7",
+      "error": null,
+      "critiqued_at": "2026-05-14T21:22:15.968536+00:00"
+    }
+  },
+  "originality_report": {
+    "manuscript_label": "manuscript_p0pkhq84.pdf",
+    "overall_score": 72,
+    "overall_verdict": "incremental",
+    "overall_summary": "The manuscript presents a scoping review of AI in dental education with a distinctive policy framing oriented to accreditation standards, which appears to be its principal novel contribution. The empirical synthesis draws heavily on existing frameworks (notably Schwendicke 2022) and overlaps thematically with cited comparator reviews (Aura-Tormos 2026; Kong 2025; Iniesta 2026), but the manuscript explicitly differentiates itself from these. No reference corpus was supplied for direct comparison, so overlap assessment is based solely on the manuscript's own citations and internal positioning.",
+    "reference_corpus_size": 0,
+    "corpus_mode": "folder",
+    "error": null,
+    "model": "claude-opus-4-7",
+    "audited_at": "2026-05-14T21:22:42.996695+00:00",
+    "section_reports": [
+      {
+        "section_id": "introduction_rationale",
+        "novelty_score": 75,
+        "verdict": "incremental",
+        "summary": "Rationale frames a specific accreditation-policy gap not addressed by prior reviews, which is a defensible novel angle, though the underlying premise (fragmented evidence on AI in dental education) is well-rehearsed.",
+        "overlap_matches": [],
+        "unique_contributions": [
+          "Explicit framing of an 'accreditation dilemma' distinguishing capability evidence from curricular/regulatory evidence"
+        ]
+      },
+      {
+        "section_id": "introduction_objectives",
+        "novelty_score": 78,
+        "verdict": "incremental",
+        "summary": "Objective is narrowly scoped to what evidence can support at accreditation level, differentiating it from broader mapping reviews.",
+        "overlap_matches": [],
+        "unique_contributions": [
+          "Accreditation-specific evidentiary objective rather than general mapping"
+        ]
+      },
+      {
+        "section_id": "methods_eligibility",
+        "novelty_score": 70,
+        "verdict": "incremental",
+        "summary": "Standard PCC/JBI eligibility approach; procedural resemblance to other scoping reviews is expected and not overlap. Specific exclusion criteria (e.g., LLM performance studies without curricular implication) reflect the accreditation framing.",
+        "overlap_matches": [],
+        "unique_contributions": [
+          "Exclusion logic tailored to distinguish capability vs curricular evidence"
+        ]
+      },
+      {
+        "section_id": "methods_information_sources",
+        "novelty_score": 60,
+        "verdict": "incremental",
+        "summary": "Single-database MEDLINE search is a methodological limitation rather than an overlap concern. No substantive duplication detected.",
+        "overlap_matches": [],
+        "unique_contributions": []
+      },
+      {
+        "section_id": "methods_data_charting",
+        "novelty_score": 70,
+        "verdict": "incremental",
+        "summary": "Standard JBI-aligned charting procedure. Procedural similarity to other scoping reviews is expected and not flagged.",
+        "overlap_matches": [],
+        "unique_contributions": [
+          "Charting variable 'relevance to accreditation/competency framework' explicitly included"
+        ]
+      },
+      {
+        "section_id": "results_synthesis",
+        "novelty_score": 75,
+        "verdict": "incremental",
+        "summary": "Six-tier evidential organisation mapped to policy formation logic is a modest organisational novelty. Thematic categories themselves resemble those used in cited comparator reviews.",
+        "overlap_matches": [],
+        "unique_contributions": [
+          "Six-tier evidential mapping aligned to accreditation policy logic"
+        ]
+      },
+      {
+        "section_id": "results_characteristics",
+        "novelty_score": 80,
+        "verdict": "novel",
+        "summary": "Descriptive characterisation of 28 included studies is an original empirical contribution of this review.",
+        "overlap_matches": [],
+        "unique_contributions": [
+          "Original characterisation table of 28 studies with Kirkpatrick mapping"
+        ]
+      },
+      {
+        "section_id": "results_critical_appraisal",
+        "novelty_score": 72,
+        "verdict": "incremental",
+        "summary": "Mixed introductory/conclusory content; the substantive observations about uneven implementation echo cited reviews (Aura-Tormos 2026; Kong 2025; Iniesta 2026) but are appropriately attributed.",
+        "overlap_matches": [
+          {
+            "reference_id": "manuscript-cited",
+            "reference_label": "Schwendicke et al., 2022",
+            "overlap_type": "concept",
+            "overlap_description": "The four-domain AI curriculum framework is the structural backbone of the synthesis; manuscript restates these domains repeatedly but cites the original appropriately.",
+            "severity": "low"
+          }
+        ],
+        "unique_contributions": [
+          "Outcome-based, locally adaptable accreditation framing"
+        ]
+      },
+      {
+        "section_id": "discussion_summary",
+        "novelty_score": 76,
+        "verdict": "incremental",
+        "summary": "Synthesises findings into a tiered accreditation recommendation (mandatory literacy, recommended applied competencies, required faculty development evidence). This tiered policy recommendation is the manuscript's clearest novel contribution.",
+        "overlap_matches": [
+          {
+            "reference_id": "manuscript-cited",
+            "reference_label": "Schwendicke et al., 2022; Uribe et al., 2024; Leung et al., 2026",
+            "overlap_type": "finding",
+            "overlap_description": "Observations about faculty readiness gaps and uneven implementation closely track findings already established by these cited works; manuscript appropriately attributes them.",
+            "severity": "low"
+          }
+        ],
+        "unique_contributions": [
+          "Tiered accreditation recommendation distinguishing mandatory literacy from aspirational applied competence",
+          "Explicit linkage of automation-bias and skill-retention findings to regulatory caution"
+        ]
+      },
+      {
+        "section_id": "discussion_limitations",
+        "novelty_score": 65,
+        "verdict": "incremental",
+        "summary": "Standard limitations enumeration; no novelty concern and no overlap concern.",
+        "overlap_matches": [],
+        "unique_contributions": []
+      },
+      {
+        "section_id": "discussion_conclusions",
+        "novelty_score": 74,
+        "verdict": "incremental",
+        "summary": "Conclusion restates the tiered accreditation framing. Substantive policy recommendation is the manuscript's distinctive contribution; the underlying empirical claims are drawn from cited literature.",
+        "overlap_matches": [],
+        "unique_contributions": [
+          "Outcome-based accreditation framing with locally adaptable implementation pathways"
+        ]
+      }
+    ]
+  },
+  "parse_errors": [],
+  "audited_at": "2026-05-14T21:18:14.464921+00:00"
+}

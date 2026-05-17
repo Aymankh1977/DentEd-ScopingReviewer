@@ -1,0 +1,339 @@
+"""
+DentEd-ScopingReviewer — Drafter Agent
+======================================
+Produces section prose for one PRISMA-ScR item at a time.
+
+Workflow per section
+--------------------
+1. Look up the section's `SectionPrompt` from `app.prompts`.
+2. Validate that every entry in `required_evidence` is present in the
+   project context. If anything is missing, return a `BLOCKED` result
+   listing what's missing — don't draft on incomplete evidence.
+3. Assemble the user message:
+     - Project metadata (research question, PCC, mode)
+     - Charted corpus (for sections that need it — results_*, discussion_*)
+     - Previously drafted sections this section depends on
+     - The section's requirements block (PRISMA-ScR item, objective,
+       evidence list, structural requirements, word target, tone)
+4. Call the DRAFTING role API client.
+5. Return a `DraftResult` containing the prose, the model output as-is,
+   any structured output blocks (e.g. PRISMA flow JSON), and token usage.
+
+The drafter does NOT decide *whether* to draft a section. That's the
+orchestrator's job (it enforces the dependency graph). The drafter
+just executes one section at a time, cleanly.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import re
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from typing import Any, Optional
+
+from app.agents.api_client_manager import APIClientManager, Role, get_manager
+from app.prompts import SECTION_PROMPTS, SectionPrompt, get_prompt
+
+logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------------------------
+# Drafter system prompt
+# ---------------------------------------------------------------------------
+DRAFTER_SYSTEM_PROMPT = """You are a senior academic writer producing one section of a PRISMA-ScR-compliant scoping review for a Health Professions Education (HPE) / dental education journal.
+
+You will be given:
+  - The project's research question and PCC (Population, Concept, Context).
+  - The charted corpus of included studies (as structured JSON).
+  - Any previously-drafted sections this section depends on.
+  - A detailed specification for THIS section, including the exact PRISMA-ScR item it addresses, the evidence you must use, the structural requirements, the word target, and section-specific guidance.
+
+You follow these rules without exception:
+
+1. **PRISMA-ScR compliance is non-negotiable.** Every structural requirement listed in the section spec must appear in your output. If you cannot meet a requirement because evidence is missing, write `[TO BE FILLED — evidence missing: <description>]` exactly, never invent the missing fact.
+
+2. **Faithfulness to the corpus.** Every factual claim about included studies must trace to a chart in the corpus. Use in-text citations as (FirstAuthor et al., Year). Do not cite studies that are not in the corpus. Do not invent author names, years, or findings.
+
+3. **Stay in your lane.** Do not preview or pre-empt content that belongs in a later section. If guidance says "do not discuss limitations here", do not discuss limitations here.
+
+4. **Word target.** Stay within the word target ±10%. Brevity is a virtue in PRISMA-ScR sections — academic editors penalise padding.
+
+5. **UK English, academic register.** Neutral, evidence-led. Avoid hedge stacking ("it may possibly be the case that..."), avoid hype ("revolutionary", "groundbreaking"), avoid the first person plural unless the project context indicates a single review team.
+
+6. **Output format.** Follow the section's output_format exactly. If a markdown table is required, render it correctly with pipes and dashes. If a fenced code block is required at the end (e.g. JSON for the flow diagram), include it verbatim.
+
+7. **No preamble, no postamble.** Do not write "Here is the section..." or "Let me know if you need changes." Start with the section content; end with the section content (or the required trailing code block).
+
+You write one section. You write it well. You write it once."""
+
+
+# ---------------------------------------------------------------------------
+# Status + result types
+# ---------------------------------------------------------------------------
+class DraftStatus:
+    OK = "ok"
+    BLOCKED = "blocked"  # required evidence missing
+    FAILED = "failed"    # API or parsing error
+
+
+@dataclass
+class DraftResult:
+    section_id: str
+    status: str
+    prose: Optional[str] = None
+    structured_blocks: dict[str, Any] = field(default_factory=dict)
+    missing_evidence: list[str] = field(default_factory=list)
+    error: Optional[str] = None
+    word_count: int = 0
+    model: Optional[str] = None
+    raw_output: Optional[str] = None
+    drafted_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
+
+    def to_dict(self) -> dict:
+        return {
+            "section_id": self.section_id,
+            "status": self.status,
+            "prose": self.prose,
+            "structured_blocks": self.structured_blocks,
+            "missing_evidence": self.missing_evidence,
+            "error": self.error,
+            "word_count": self.word_count,
+            "model": self.model,
+            "drafted_at": self.drafted_at,
+        }
+
+
+# ---------------------------------------------------------------------------
+# Drafter
+# ---------------------------------------------------------------------------
+class DrafterAgent:
+    """
+    Drafts one PRISMA-ScR section at a time.
+
+    Typical usage (called from the Orchestrator)
+    --------------------------------------------
+        drafter = DrafterAgent()
+        result = drafter.draft(
+            section_id="methods_eligibility",
+            project_context={...},
+            corpus_charts=[...],
+            previous_sections={...},
+        )
+        if result.status == DraftStatus.OK:
+            print(result.prose)
+    """
+
+    def __init__(self, manager: Optional[APIClientManager] = None):
+        self.manager = manager or get_manager()
+
+    # -- public API --------------------------------------------------------
+    def draft(
+        self,
+        section_id: str,
+        project_context: dict[str, Any],
+        corpus_charts: Optional[list[dict]] = None,
+        previous_sections: Optional[dict[str, str]] = None,
+    ) -> DraftResult:
+        try:
+            spec = get_prompt(section_id)
+        except NotImplementedError as e:
+            return DraftResult(
+                section_id=section_id,
+                status=DraftStatus.FAILED,
+                error=str(e),
+            )
+
+        corpus_charts = corpus_charts or []
+        previous_sections = previous_sections or {}
+
+        # Evidence gate — block early if anything's missing.
+        missing = self._check_required_evidence(
+            spec, project_context, corpus_charts, previous_sections
+        )
+        if missing:
+            logger.info(
+                "Section %s blocked — missing evidence: %s",
+                section_id, missing,
+            )
+            return DraftResult(
+                section_id=section_id,
+                status=DraftStatus.BLOCKED,
+                missing_evidence=missing,
+            )
+
+        user_message = self._build_user_message(
+            spec, project_context, corpus_charts, previous_sections
+        )
+
+        try:
+            response = self.manager.complete(
+                role=Role.DRAFTING,
+                system=DRAFTER_SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": user_message}],
+            )
+        except Exception as e:
+            logger.exception("Drafter API call failed for %s", section_id)
+            return DraftResult(
+                section_id=section_id,
+                status=DraftStatus.FAILED,
+                error=str(e),
+            )
+
+        raw = response.content[0].text if response.content else ""
+        prose, structured = self._split_prose_and_structured_blocks(raw)
+        word_count = len(prose.split())
+
+        return DraftResult(
+            section_id=section_id,
+            status=DraftStatus.OK,
+            prose=prose,
+            structured_blocks=structured,
+            word_count=word_count,
+            model=response.model,
+            raw_output=raw,
+        )
+
+    # -- evidence gate -----------------------------------------------------
+    def _check_required_evidence(
+        self,
+        spec: SectionPrompt,
+        project_context: dict[str, Any],
+        corpus_charts: list[dict],
+        previous_sections: dict[str, str],
+    ) -> list[str]:
+        """
+        Heuristic check that the required_evidence items are at least
+        plausibly present. We don't try to match each bullet 1:1 — that
+        would be brittle — but we flag obvious gaps so we can short-circuit
+        instead of producing a junk draft.
+        """
+        missing: list[str] = []
+
+        # Core project metadata must be present for every section.
+        for key in ("research_question", "population", "concept", "context"):
+            if not project_context.get(key):
+                missing.append(f"project_context.{key}")
+
+        # If the section's required_evidence mentions "charted corpus" or
+        # "extracted charts" or "themes", the corpus must be non-empty.
+        joined = " ".join(spec.required_evidence).lower()
+        needs_corpus = any(
+            kw in joined
+            for kw in ("chart", "corpus", "themes", "included stud", "extract")
+        )
+        if needs_corpus and not corpus_charts:
+            missing.append("corpus_charts (no included studies provided)")
+
+        # If the section's required_evidence references a previously
+        # drafted section (e.g. results_synthesis depends on
+        # results_characteristics in spirit), we don't enforce that here
+        # — the orchestrator's dependency graph already does.
+        return missing
+
+    # -- prompt assembly ---------------------------------------------------
+    def _build_user_message(
+        self,
+        spec: SectionPrompt,
+        project_context: dict[str, Any],
+        corpus_charts: list[dict],
+        previous_sections: dict[str, str],
+    ) -> str:
+        parts: list[str] = []
+
+        # 1. Project metadata
+        parts.append("## Project metadata")
+        parts.append(f"- **Research question:** {project_context.get('research_question')}")
+        parts.append(f"- **Population (P):** {project_context.get('population')}")
+        parts.append(f"- **Concept (C):** {project_context.get('concept')}")
+        parts.append(f"- **Context (C):** {project_context.get('context')}")
+        parts.append(f"- **Mode:** {project_context.get('mode', 'generate')}")
+        parts.append("")
+
+        # 2. Charted corpus (only included studies)
+        if corpus_charts:
+            included = [
+                c for c in corpus_charts
+                if (c.get("relevance", {}) or {})
+                    .get("inclusion_recommendation", "include").lower() == "include"
+                and "_extraction_error" not in c
+            ]
+            parts.append(f"## Charted corpus ({len(included)} included studies)")
+            parts.append(
+                "Each entry below is one included study's extracted chart. "
+                "Use these as the evidence base. Author and year are in "
+                "`bibliographic.first_author` and `bibliographic.year`."
+            )
+            parts.append("```json")
+            parts.append(json.dumps(included, indent=2, ensure_ascii=False))
+            parts.append("```")
+            parts.append("")
+        else:
+            parts.append("## Charted corpus")
+            parts.append(
+                "_No charted studies provided. If this section requires "
+                "corpus evidence, mark the relevant claims as `[TO BE "
+                "FILLED — evidence missing]`._"
+            )
+            parts.append("")
+
+        # 3. Previously drafted sections (for downstream sections that
+        #    need to build on earlier drafts).
+        if previous_sections:
+            parts.append("## Previously drafted sections")
+            for sid, prose in previous_sections.items():
+                parts.append(f"### {sid}")
+                parts.append(prose.strip())
+                parts.append("")
+
+        # 4. The section specification — this is the heart of the prompt.
+        parts.append("## Specification for THIS section")
+        parts.append(spec.render_requirements_block())
+        parts.append("")
+        parts.append(
+            "Now draft this section, following every structural "
+            "requirement and the output_format. Begin immediately with "
+            "the section content — no preamble."
+        )
+
+        return "\n".join(parts)
+
+    # -- response parsing --------------------------------------------------
+    _FENCED_JSON_RE = re.compile(
+        r"```(?:json)?\s*\n(\{.*?\})\s*\n```",
+        re.DOTALL,
+    )
+
+    def _split_prose_and_structured_blocks(
+        self, raw: str
+    ) -> tuple[str, dict[str, Any]]:
+        """
+        Extract trailing fenced JSON blocks (e.g. the PRISMA flow numbers
+        from results_selection) and return (prose_without_fences, dict).
+        """
+        structured: dict[str, Any] = {}
+        prose = raw.strip()
+
+        matches = list(self._FENCED_JSON_RE.finditer(prose))
+        if matches:
+            for i, m in enumerate(matches):
+                try:
+                    structured[f"json_block_{i}"] = json.loads(m.group(1))
+                except json.JSONDecodeError as e:
+                    logger.warning(
+                        "Could not parse fenced JSON block %d: %s", i, e
+                    )
+                    structured[f"json_block_{i}_raw"] = m.group(1)
+            # Strip the fenced JSON blocks from the prose so the prose
+            # is clean for display. Keep any other code blocks (e.g.
+            # the PubMed search string in methods_search) intact.
+            prose = self._FENCED_JSON_RE.sub("", prose).strip()
+
+        return prose, structured
+
+    # -- diagnostics -------------------------------------------------------
+    def available_sections(self) -> list[str]:
+        return sorted(SECTION_PROMPTS.keys())
