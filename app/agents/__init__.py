@@ -1,1 +1,1 @@
-# DentEd-ScopingReviewer — agents sub-package
+# DentEdTech-ScopingReviewer™ — agents sub-package

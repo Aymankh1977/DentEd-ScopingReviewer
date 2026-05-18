@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Orchestrator Agent (v3 — critic wired in)
+DentEdTech-ScopingReviewer™ — Orchestrator Agent (v3 — critic wired in)
 ====================================================================
 The orchestrator is the central planner. It:
 

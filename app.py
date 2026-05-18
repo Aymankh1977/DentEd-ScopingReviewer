@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer™ — Streamlit UI (v2)
+DentEdTech-ScopingReviewer™ — Streamlit UI (v2)
 =============================================
 Major upgrades over v1:
   • Project names (no more hex-only IDs in sidebar)
@@ -38,7 +38,7 @@ EXPORT_ROOT = Path("data/exports")
 WORKSPACE_ROOT.mkdir(parents=True, exist_ok=True)
 EXPORT_ROOT.mkdir(parents=True, exist_ok=True)
 
-st.set_page_config(page_title="DentEd-ScopingReviewer™", page_icon="🦷",
+st.set_page_config(page_title="DentEdTech-ScopingReviewer™", page_icon="🦷",
                    layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
@@ -129,7 +129,7 @@ def _pill(value: str, score: int | None = None) -> str:
 # Sidebar
 # ---------------------------------------------------------------------------
 with st.sidebar:
-    st.title("🦷 DentEd-ScopingReviewer™")
+    st.title("🦷 DentEdTech-ScopingReviewer™")
     st.caption(f"v{APP_VERSION} · PRISMA-ScR-compliant")
     st.divider()
 

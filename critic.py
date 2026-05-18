@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Critic Agent
+DentEdTech-ScopingReviewer™ — Critic Agent
 =====================================
 Audits a drafted section against the PRISMA-ScR specification that
 governed its creation. The critic is the discipline that separates this

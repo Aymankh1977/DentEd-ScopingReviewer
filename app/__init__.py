@@ -1,1 +1,1 @@
-# DentEd-ScopingReviewer — app package root
+# DentEdTech-ScopingReviewer™ — app package root

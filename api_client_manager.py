@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — API Client Manager
+DentEdTech-ScopingReviewer™ — API Client Manager
 ============================================
 Manages multiple Anthropic API keys, each bound to a specialised role.
 
