@@ -63,10 +63,13 @@ class SectionStatus(str, Enum):
 
 
 # Statuses that count as "completed enough" for downstream dependencies.
+# REVISION_REQUESTED is included: the draft exists and is usable as context;
+# withholding it would cascade-block every downstream section indefinitely.
 COMPLETED_STATUSES = {
     SectionStatus.DRAFTED,
     SectionStatus.CRITIQUED,
     SectionStatus.APPROVED,
+    SectionStatus.REVISION_REQUESTED,
 }
 
 
@@ -368,21 +371,37 @@ class Orchestrator:
         project: ReviewProject,
         max_iterations: int = 25,
         auto_critique: Optional[bool] = None,
+        max_revisions_per_section: int = 2,
     ) -> list[str]:
         drafted: list[str] = []
+        revision_counts: dict[str, int] = {}
+
         for _ in range(max_iterations):
+            # 1. Draft every section whose dependencies are satisfied.
             ready = self.ready_sections(project)
-            if not ready:
-                break
             for sid in ready:
                 self.draft_section(project, sid, auto_critique=auto_critique)
-                # Only count if the section ended in a "completed enough" state.
-                if project.sections[sid].status in {
-                    SectionStatus.DRAFTED,
-                    SectionStatus.CRITIQUED,
-                    SectionStatus.APPROVED,
-                }:
+                if project.sections[sid].status in COMPLETED_STATUSES:
                     drafted.append(sid)
+
+            # 2. Auto-revise sections that need it (up to the per-section cap).
+            revise_candidates = [
+                sid for sid, st in project.sections.items()
+                if st.status == SectionStatus.REVISION_REQUESTED
+                and revision_counts.get(sid, 0) < max_revisions_per_section
+            ]
+            for sid in revise_candidates:
+                revision_counts[sid] = revision_counts.get(sid, 0) + 1
+                logger.info(
+                    "Auto-revising %s (attempt %d/%d).",
+                    sid, revision_counts[sid], max_revisions_per_section,
+                )
+                self.revise_section(project, sid)
+
+            # Stop when nothing moved.
+            if not ready and not revise_candidates:
+                break
+
         return drafted
 
     # -- critique ----------------------------------------------------------
