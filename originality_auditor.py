@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Originality Auditor Agent
+DentEdTech-ScopingReviewer™ — Originality Auditor Agent
 ====================================================
 Critiques an uploaded manuscript for conceptual novelty against a
 reference corpus. Operates on MEANING, not strings (unlike Turnitin /

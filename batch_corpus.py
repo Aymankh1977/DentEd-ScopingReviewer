@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Folder-Based Batch Processor (v2)
+DentEdTech-ScopingReviewer™ — Folder-Based Batch Processor (v2)
 ============================================================
 Point at a folder, get a complete PRISMA-ScR scoping review.
 

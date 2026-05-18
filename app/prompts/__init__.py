@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Section Prompt Library
+DentEdTech-ScopingReviewer™ — Section Prompt Library
 ================================================
 Defines `SectionPrompt`, the complete `SECTION_PROMPTS` registry for all
 21 PRISMA-ScR sections, and the `get_prompt()` accessor used by the

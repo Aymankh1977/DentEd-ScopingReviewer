@@ -1,4 +1,4 @@
-# DentEd-ScopingReviewer™
+# DentEdTech-ScopingReviewer™
 
 **AI-powered scoping review generator and manuscript critique platform**
 for Health Professions Education (HPE) and dental education research,

@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Extractor Agent
+DentEdTech-ScopingReviewer™ — Extractor Agent
 =========================================
 Performs PRISMA-ScR data charting (Items 10–11) from uploaded sources.
 

@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Drafter Agent (v2 — revision support)
+DentEdTech-ScopingReviewer™ — Drafter Agent (v2 — revision support)
 ================================================================
 Produces section prose for one PRISMA-ScR item at a time, and revises
 existing drafts in response to critic feedback.

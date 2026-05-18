@@ -1,5 +1,5 @@
 """
-DentEd-ScopingReviewer — Manuscript Critique Mode
+DentEdTech-ScopingReviewer™ — Manuscript Critique Mode
 ====================================================
 Takes any manuscript PDF (yours or someone else's), parses it into
 PRISMA-ScR-mapped sections, and runs:
