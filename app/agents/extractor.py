@@ -7,6 +7,18 @@ if _ROOT not in sys.path:
     sys.path.insert(0, _ROOT)
 
 from extractor import *  # noqa: F401, F403, E402
-from extractor import ExtractorAgent  # noqa: E402
+from extractor import (  # noqa: E402  — private names excluded from * must be explicit
+    ExtractorAgent,
+    InvalidPDFError,
+    _extract_pdf_text,
+    _validate_pdf_file,
+    _repair_and_parse_json,
+)
 
-__all__ = ["ExtractorAgent"]
+__all__ = [
+    "ExtractorAgent",
+    "InvalidPDFError",
+    "_extract_pdf_text",
+    "_validate_pdf_file",
+    "_repair_and_parse_json",
+]
