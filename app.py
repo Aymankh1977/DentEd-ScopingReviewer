@@ -471,20 +471,28 @@ with tab3:
         st.divider()
         cols = st.columns(3)
         with cols[0]:
+            if st.button("▶ Draft remaining sections", type="primary"):
+                with st.spinner("Cascading through remaining sections…"):
+                    new_drafts = orch.draft_all_ready(
+                        project, max_iterations=30, max_revisions_per_section=2
+                    )
+                st.success(f"Drafted {len(new_drafts)} new section(s).")
+                st.rerun()
+        with cols[1]:
+            if st.button("🔁 Revise all flagged"):
+                with st.spinner("Revising…"):
+                    for sid_, st_ in project.sections.items():
+                        if st_.status == SectionStatus.REVISION_REQUESTED:
+                            orch.revise_section(project, sid_)
+                st.rerun()
+        with cols[2]:
             if st.button("📄 Export manuscript"):
-                from tests.export_review import export
+                from export_review import export  # root-level module
                 out = export(pid)
                 with open(out) as f:
                     st.download_button("⬇ Download .md", data=f.read(),
                                         file_name=f"{project.name}.md",
                                         mime="text/markdown")
-        with cols[1]:
-            if st.button("🔁 Revise all flagged"):
-                with st.spinner("Revising..."):
-                    for sid_, st_ in project.sections.items():
-                        if st_.status == SectionStatus.REVISION_REQUESTED:
-                            orch.revise_section(project, sid_)
-                st.rerun()
 
 
 # ============================================================================
