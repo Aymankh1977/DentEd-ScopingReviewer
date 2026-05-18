@@ -152,6 +152,15 @@ class ReviewProject:
     # conflicts_of_interest, authors.
     metadata: dict = field(default_factory=dict)
 
+    def __getattr__(self, name: str):
+        # Backward compat: old pickled instances lack fields added later.
+        if name == "metadata":
+            object.__setattr__(self, "metadata", {})
+            return {}
+        raise AttributeError(
+            f"'{type(self).__name__}' object has no attribute '{name}'"
+        )
+
     def to_dict(self) -> dict:
         return {
             "project_id": self.project_id,

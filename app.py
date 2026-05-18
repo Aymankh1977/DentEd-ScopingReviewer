@@ -556,7 +556,7 @@ with tab3:
             st.caption("Fill in any field below and click Save. "
                        "Tick the box to reset affected sections so they "
                        "are re-drafted using the new information.")
-            existing = project.metadata
+            existing = getattr(project, "metadata", {})
             um1, um2 = st.columns(2)
             with um1:
                 u_reg_platform = st.text_input("Registration platform",
