@@ -194,10 +194,34 @@ with tab1:
             uploads = st.file_uploader(
                 "Upload corpus PDFs (no limit)",
                 accept_multiple_files=True, type=["pdf"])
-            auto_critique = st.checkbox("Auto-critique each section",
-                                         value=True)
-            full_cascade = st.checkbox("Cascade through all 21 sections",
-                                        value=True)
+            auto_critique = st.checkbox("Auto-critique each section", value=True)
+            full_cascade = st.checkbox("Cascade through all 21 sections", value=True)
+
+        with st.expander("📋 Review administration details (strongly recommended)"):
+            st.caption("These are used directly in Methods, Funding, and Abstract sections — "
+                       "providing them now avoids placeholder text in the manuscript.")
+            mc1, mc2 = st.columns(2)
+            with mc1:
+                reg_platform = st.selectbox("Protocol registration platform",
+                    ["None / not registered", "Open Science Framework (OSF)",
+                     "PROSPERO", "JBI", "Other"])
+                reg_number  = st.text_input("Registration number", placeholder="e.g. OSF: 10.17605/...")
+                reg_url     = st.text_input("Registration URL (optional)")
+                last_search = st.text_input("Date of last database search", placeholder="e.g. March 2024")
+                date_range  = st.text_input("Eligibility date range", placeholder="e.g. 2015–2024")
+                lang_rest   = st.text_input("Language restriction", placeholder="e.g. English only")
+            with mc2:
+                screening_tool  = st.text_input("Screening tool", placeholder="e.g. Rayyan, Covidence, Excel")
+                n_reviewers     = st.text_input("Number of independent reviewers", placeholder="e.g. 2")
+                conflict_res    = st.text_input("Conflict resolution method",
+                                                placeholder="e.g. consensus / third reviewer")
+                funding_src     = st.text_input("Funding source",
+                                                placeholder="e.g. Unfunded / Grant agency name")
+                grant_num       = st.text_input("Grant number (if funded)", placeholder="e.g. WT123456")
+                coi             = st.text_input("Conflicts of interest",
+                                                placeholder="e.g. The authors declare no conflicts of interest.")
+                authors         = st.text_area("Authors & affiliations (optional)",
+                                               placeholder="e.g. Smith J¹, Jones A²...", height=60)
 
         submit = st.form_submit_button("🚀 Start review", type="primary")
 
@@ -205,39 +229,98 @@ with tab1:
         if not (name and rq and population and concept and context and uploads):
             st.error("Fill all fields and upload at least one PDF.")
         else:
+            meta = {
+                "registration_platform": reg_platform if reg_platform != "None / not registered" else "",
+                "registration_number": reg_number,
+                "registration_url": reg_url,
+                "last_search_date": last_search,
+                "eligibility_date_range": date_range,
+                "language_restriction": lang_rest,
+                "screening_tool": screening_tool,
+                "n_reviewers": n_reviewers,
+                "conflict_resolution": conflict_res,
+                "funding_source": funding_src,
+                "grant_number": grant_num,
+                "conflicts_of_interest": coi,
+                "authors": authors,
+            }
             orch = Orchestrator(auto_critique=auto_critique)
             with st.spinner("Starting project..."):
                 project = orch.start_project(
                     mode=ReviewMode.GENERATE, name=name,
                     research_question=rq, population=population,
                     concept=concept, context=context,
+                    metadata={k: v for k, v in meta.items() if v},
                 )
                 st.session_state.active_project_id = project.project_id
 
-            st.success(f"Created project **{project.name}** "
-                       f"(`{project.project_id}`)")
+            st.success(f"Created project **{project.name}** (`{project.project_id}`)")
 
-            progress = st.progress(0.0, text="Registering...")
+            progress = st.progress(0.0, text="Registering PDFs…")
             for i, f in enumerate(uploads):
                 path = _save_uploaded(f, "corpus")
-                orch.register_source(project, path, role="corpus",
-                                     filename=f.name)
-                progress.progress((i + 1) / len(uploads), text=f.name)
+                orch.register_source(project, path, role="corpus", filename=f.name)
+                progress.progress((i + 1) / len(uploads),
+                                  text=f"Registered {f.name}")
 
-            with st.spinner(f"Extracting {len(uploads)} PDFs..."):
-                orch.extract_all(project)
+            extract_bar = st.progress(0.0, text="Extracting PDF 1…")
+            sources_list = list(project.sources.values())
+            from app.agents.extractor import ExtractorAgent
+            extractor = ExtractorAgent(orch.manager)
+            ctx = orch._project_context(project)
+            for i, source in enumerate(sources_list):
+                extract_bar.progress((i + 0.5) / len(sources_list),
+                                     text=f"Extracting {source.filename}…")
+                if source.extracted_chart is None:
+                    source.extracted_chart = extractor.extract_chart(
+                        source_path=source.path, project_context=ctx)
+                extract_bar.progress((i + 1) / len(sources_list),
+                                     text=f"✓ {source.filename}")
+            orch.save(project)
 
             included = sum(
                 1 for s in project.sources.values()
                 if (s.extracted_chart or {}).get("relevance", {}).get(
                     "inclusion_recommendation") == "include")
-            st.info(f"Extracted {len(uploads)} papers · "
-                    f"{included} marked for inclusion.")
+            st.info(f"Extracted {len(uploads)} papers · {included} marked for inclusion.")
 
             if full_cascade:
-                with st.spinner("Cascading through PRISMA-ScR sections..."):
-                    drafted = orch.draft_all_ready(project, max_iterations=30)
-                st.success(f"Drafted {len(drafted)} sections.")
+                section_status_area = st.empty()
+                drafted_log: list[str] = []
+
+                def _cascade_with_progress(proj, orch_inst):
+                    from app.agents.orchestrator import (
+                        COMPLETED_STATUSES, SectionStatus, PRISMA_SCR_SECTIONS,
+                    )
+                    revision_counts: dict[str, int] = {}
+                    for _iter in range(40):
+                        ready = orch_inst.ready_sections(proj)
+                        for sid in ready:
+                            section_status_area.info(
+                                f"✍️ Drafting **{sid}** "
+                                f"({len(drafted_log)+1}/21)…")
+                            orch_inst.draft_section(proj, sid,
+                                                    auto_critique=auto_critique)
+                            if proj.sections[sid].status in COMPLETED_STATUSES:
+                                drafted_log.append(sid)
+                        revise_cands = [
+                            sid for sid, st_ in proj.sections.items()
+                            if st_.status == SectionStatus.REVISION_REQUESTED
+                            and revision_counts.get(sid, 0) < 2
+                        ]
+                        for sid in revise_cands:
+                            revision_counts[sid] = revision_counts.get(sid, 0) + 1
+                            section_status_area.info(
+                                f"🔁 Revising **{sid}** "
+                                f"(attempt {revision_counts[sid]}/2)…")
+                            orch_inst.revise_section(proj, sid)
+                        if not ready and not revise_cands:
+                            break
+
+                _cascade_with_progress(project, orch)
+                section_status_area.empty()
+                st.success(f"Drafted {len(drafted_log)}/21 sections: "
+                           f"{', '.join(drafted_log)}")
             st.rerun()
 
 
@@ -468,15 +551,103 @@ with tab3:
                             orch.revise_section(project, sid)
                         st.rerun()
 
+        # -- Update review details for existing projects ------------------
+        with st.expander("📋 Update / add review administration details"):
+            st.caption("Fill in any field below and click Save. "
+                       "Tick the box to reset affected sections so they "
+                       "are re-drafted using the new information.")
+            existing = project.metadata
+            um1, um2 = st.columns(2)
+            with um1:
+                u_reg_platform = st.text_input("Registration platform",
+                    value=existing.get("registration_platform", ""),
+                    key="u_reg_plat")
+                u_reg_number = st.text_input("Registration number",
+                    value=existing.get("registration_number", ""),
+                    key="u_reg_num")
+                u_reg_url = st.text_input("Registration URL",
+                    value=existing.get("registration_url", ""),
+                    key="u_reg_url")
+                u_last_search = st.text_input("Date of last search",
+                    value=existing.get("last_search_date", ""),
+                    key="u_search_date")
+                u_date_range = st.text_input("Eligibility date range",
+                    value=existing.get("eligibility_date_range", ""),
+                    key="u_date_range")
+                u_lang = st.text_input("Language restriction",
+                    value=existing.get("language_restriction", ""),
+                    key="u_lang")
+            with um2:
+                u_tool = st.text_input("Screening tool",
+                    value=existing.get("screening_tool", ""), key="u_tool")
+                u_rev = st.text_input("No. of reviewers",
+                    value=existing.get("n_reviewers", ""), key="u_rev")
+                u_conflict_res = st.text_input("Conflict resolution",
+                    value=existing.get("conflict_resolution", ""),
+                    key="u_conflict_res")
+                u_funding = st.text_input("Funding source",
+                    value=existing.get("funding_source", ""), key="u_funding")
+                u_grant = st.text_input("Grant number",
+                    value=existing.get("grant_number", ""), key="u_grant")
+                u_coi = st.text_input("Conflicts of interest",
+                    value=existing.get("conflicts_of_interest", ""),
+                    key="u_coi")
+                u_authors = st.text_area("Authors & affiliations",
+                    value=existing.get("authors", ""),
+                    height=60, key="u_authors")
+            reset_secs = st.checkbox(
+                "Reset affected sections to PENDING so they are re-drafted "
+                "with the updated information",
+                value=False, key="reset_secs")
+            if st.button("💾 Save details", key="save_meta"):
+                new_meta = {
+                    "registration_platform": u_reg_platform,
+                    "registration_number": u_reg_number,
+                    "registration_url": u_reg_url,
+                    "last_search_date": u_last_search,
+                    "eligibility_date_range": u_date_range,
+                    "language_restriction": u_lang,
+                    "screening_tool": u_tool,
+                    "n_reviewers": u_rev,
+                    "conflict_resolution": u_conflict_res,
+                    "funding_source": u_funding,
+                    "grant_number": u_grant,
+                    "conflicts_of_interest": u_coi,
+                    "authors": u_authors,
+                }
+                orch.update_metadata(project, new_meta,
+                                     reset_affected_sections=reset_secs)
+                st.success("Details saved.")
+                st.rerun()
+
         st.divider()
         cols = st.columns(3)
         with cols[0]:
             if st.button("▶ Draft remaining sections", type="primary"):
-                with st.spinner("Cascading through remaining sections…"):
-                    new_drafts = orch.draft_all_ready(
-                        project, max_iterations=30, max_revisions_per_section=2
-                    )
-                st.success(f"Drafted {len(new_drafts)} new section(s).")
+                sec_area = st.empty()
+                drafted_log2: list[str] = []
+                revision_counts2: dict[str, int] = {}
+                from app.agents.orchestrator import COMPLETED_STATUSES as CS
+                for _i in range(40):
+                    ready2 = orch.ready_sections(project)
+                    for sid in ready2:
+                        sec_area.info(f"✍️ Drafting **{sid}**…")
+                        orch.draft_section(project, sid)
+                        if project.sections[sid].status in CS:
+                            drafted_log2.append(sid)
+                    rev2 = [
+                        s for s, st_ in project.sections.items()
+                        if st_.status == SectionStatus.REVISION_REQUESTED
+                        and revision_counts2.get(s, 0) < 2
+                    ]
+                    for sid in rev2:
+                        revision_counts2[sid] = revision_counts2.get(sid, 0) + 1
+                        sec_area.info(f"🔁 Revising **{sid}**…")
+                        orch.revise_section(project, sid)
+                    if not ready2 and not rev2:
+                        break
+                sec_area.empty()
+                st.success(f"Drafted {len(drafted_log2)} new section(s).")
                 st.rerun()
         with cols[1]:
             if st.button("🔁 Revise all flagged"):

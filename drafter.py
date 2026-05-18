@@ -259,6 +259,33 @@ class DrafterAgent:
         parts.append(f"- **Concept (C):** {project_context.get('concept')}")
         parts.append(f"- **Context (C):** {project_context.get('context')}")
         parts.append(f"- **Mode:** {project_context.get('mode', 'generate')}")
+        meta = project_context.get("metadata") or {}
+        if meta:
+            parts.append("")
+            parts.append("## Review administration details")
+            parts.append(
+                "Use these verified facts directly in the relevant sections — "
+                "do NOT use [TO BE FILLED] placeholders for any field that "
+                "has a value below."
+            )
+            labels = {
+                "registration_platform": "Protocol registration platform",
+                "registration_number": "Protocol registration number",
+                "registration_url": "Protocol registration URL",
+                "last_search_date": "Date of last database search",
+                "eligibility_date_range": "Eligibility date range",
+                "language_restriction": "Language restriction",
+                "screening_tool": "Screening tool used",
+                "n_reviewers": "Number of independent reviewers",
+                "conflict_resolution": "Conflict resolution method",
+                "funding_source": "Funding source",
+                "grant_number": "Grant reference number",
+                "conflicts_of_interest": "Conflicts of interest declaration",
+                "authors": "Review authors",
+            }
+            for key, label in labels.items():
+                if meta.get(key):
+                    parts.append(f"- **{label}:** {meta[key]}")
         parts.append("")
 
         if corpus_charts:
@@ -332,6 +359,28 @@ class DrafterAgent:
         parts.append(f"- Population (P): {project_context.get('population')}")
         parts.append(f"- Concept (C): {project_context.get('concept')}")
         parts.append(f"- Context (C): {project_context.get('context')}")
+        meta = project_context.get("metadata") or {}
+        if meta:
+            parts.append("")
+            parts.append("## Review administration details")
+            labels = {
+                "registration_platform": "Protocol registration platform",
+                "registration_number": "Protocol registration number",
+                "registration_url": "Protocol registration URL",
+                "last_search_date": "Date of last database search",
+                "eligibility_date_range": "Eligibility date range",
+                "language_restriction": "Language restriction",
+                "screening_tool": "Screening tool used",
+                "n_reviewers": "Number of independent reviewers",
+                "conflict_resolution": "Conflict resolution method",
+                "funding_source": "Funding source",
+                "grant_number": "Grant reference number",
+                "conflicts_of_interest": "Conflicts of interest declaration",
+                "authors": "Review authors",
+            }
+            for key, label in labels.items():
+                if meta.get(key):
+                    parts.append(f"- **{label}:** {meta[key]}")
         parts.append("")
 
         if corpus_charts:

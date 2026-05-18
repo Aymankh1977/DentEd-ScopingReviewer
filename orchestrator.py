@@ -144,6 +144,13 @@ class ReviewProject:
     sources: dict[str, UploadedSource] = field(default_factory=dict)
     sections: dict[str, SectionState] = field(default_factory=dict)
     workspace_dir: Optional[str] = None
+    # Optional administrative metadata fed directly into section prompts.
+    # Keys used by the drafter: registration_platform, registration_number,
+    # registration_url, last_search_date, eligibility_date_range,
+    # language_restriction, screening_tool, n_reviewers,
+    # conflict_resolution, funding_source, grant_number,
+    # conflicts_of_interest, authors.
+    metadata: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return {
@@ -157,6 +164,7 @@ class ReviewProject:
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "workspace_dir": self.workspace_dir,
+            "metadata": self.metadata,
             "sources": {k: asdict(v) for k, v in self.sources.items()},
             "sections": {
                 k: {**asdict(v), "status": v.status.value}
@@ -207,6 +215,7 @@ class Orchestrator:
         concept: str,
         context: str,
         name: str = "",
+        metadata: Optional[dict] = None,
     ) -> ReviewProject:
         project_id = uuid.uuid4().hex[:12]
         now = datetime.now(timezone.utc).isoformat()
@@ -224,6 +233,7 @@ class Orchestrator:
             created_at=now,
             updated_at=now,
             workspace_dir=str(workspace),
+            metadata=metadata or {},
         )
         for entry in PRISMA_SCR_SECTIONS:
             project.sections[entry["id"]] = SectionState(section_id=entry["id"])
@@ -580,6 +590,33 @@ class Orchestrator:
     def _touch(self, project: ReviewProject) -> None:
         project.updated_at = datetime.now(timezone.utc).isoformat()
 
+    def update_metadata(
+        self,
+        project: ReviewProject,
+        metadata: dict,
+        reset_affected_sections: bool = False,
+    ) -> None:
+        """Merge new metadata into the project and persist it.
+
+        If reset_affected_sections is True, sections that draw on
+        metadata fields (methods_protocol, funding, methods_search,
+        methods_selection) are reset to PENDING so they are re-drafted
+        with the updated information.
+        """
+        project.metadata.update({k: v for k, v in metadata.items() if v})
+        if reset_affected_sections:
+            affected = {
+                "methods_protocol", "funding", "methods_search",
+                "methods_information_sources", "methods_selection",
+                "methods_data_charting",
+            }
+            for sid in affected:
+                if sid in project.sections:
+                    project.sections[sid].status = SectionStatus.PENDING
+                    project.sections[sid].draft = None
+                    project.sections[sid].critique = None
+        self.save(project)
+
     def _project_context(self, project: ReviewProject) -> dict[str, Any]:
         return {
             "research_question": project.research_question,
@@ -587,6 +624,7 @@ class Orchestrator:
             "concept": project.concept,
             "context": project.context,
             "mode": project.mode.value,
+            "metadata": project.metadata,
         }
 
     def _project_from_dict(self, data: dict) -> ReviewProject:
@@ -613,6 +651,7 @@ class Orchestrator:
             created_at=data["created_at"],
             updated_at=data["updated_at"],
             workspace_dir=data.get("workspace_dir"),
+            metadata=data.get("metadata", {}),
             sources=sources,
             sections=sections,
         )
