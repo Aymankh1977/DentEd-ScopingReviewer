@@ -205,8 +205,31 @@ class APIClientManager:
 
     # -- setup -------------------------------------------------------------
     def _load_keys(self) -> None:
+        # Read Streamlit secrets if running inside a Streamlit app.
+        # On Streamlit Cloud these are the canonical source; they are also
+        # forwarded to os.environ but not always reliably at module-import time.
+        st_secrets: dict = {}
+        try:
+            import streamlit as st  # type: ignore[import]
+            st_secrets = dict(st.secrets)
+        except Exception:
+            pass
+
+        # A single ANTHROPIC_API_KEY (the standard Anthropic env var name)
+        # can be used instead of five role-specific keys. When present it is
+        # assigned to PRIMARY; allow_single_key_mode then routes every other
+        # role through PRIMARY automatically.
+        single_key = (
+            os.getenv("ANTHROPIC_API_KEY")
+            or st_secrets.get("ANTHROPIC_API_KEY")
+        )
+
         for role, cfg in self.policy.items():
-            cfg.api_key = os.getenv(cfg.env_var)
+            cfg.api_key = (
+                os.getenv(cfg.env_var)          # role-specific env var
+                or st_secrets.get(cfg.env_var)  # role-specific Streamlit secret
+                or (single_key if role == Role.PRIMARY else None)
+            )
 
     def _build_clients(self) -> None:
         for role, cfg in self.policy.items():
@@ -238,7 +261,9 @@ class APIClientManager:
         if cfg.client is None:
             raise RuntimeError(
                 f"No API key configured for role '{role.value}'. "
-                f"Set {cfg.env_var} in your .env file."
+                f"Add one of the following to your Streamlit secrets or .env file:\n"
+                f"  ANTHROPIC_API_KEY = \"sk-ant-...\"        (single key — all roles share it)\n"
+                f"  {cfg.env_var} = \"sk-ant-...\"  (role-specific key)"
             )
         return cfg
 
